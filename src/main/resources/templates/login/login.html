@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookend</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body style="width:100vw; height:100vh;">
+<div class="main-container">
+    <div class="login-controller">
+        <div class="login-top">
+            <a class="logo" href="/">Bookend</a>
+            <ul>
+                <li><a class="icon" href="https://www.notion.so/45190d1d17d0415782b2bc03857bd226?pvs=4" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#555555" d="M6.104 5.91c.584.474.802.438 1.898.365l10.332-.62c.22 0 .037-.22-.036-.256l-1.716-1.24c-.329-.255-.767-.548-1.606-.475l-10.005.73c-.364.036-.437.219-.292.365l1.425 1.13Zm.62 2.408v10.87c0 .585.292.803.95.767l11.354-.657c.657-.036.73-.438.73-.912V7.588c0-.474-.182-.73-.584-.693l-11.866.693c-.438.036-.584.255-.584.73Zm11.21.583c.072.328 0 .657-.33.694l-.547.109v8.025c-.475.256-.913.402-1.278.402c-.584 0-.73-.183-1.168-.73l-3.579-5.618v5.436l1.133.255s0 .657-.914.657l-2.519.146c-.073-.146 0-.51.256-.584l.657-.182v-7.187l-.913-.073c-.073-.329.11-.803.621-.84l2.702-.181l3.724 5.69V9.887l-.95-.109c-.072-.402.22-.693.585-.73l2.52-.146ZM4.131 3.429l10.406-.766c1.277-.11 1.606-.036 2.41.547l3.321 2.335c.548.401.731.51.731.948v12.805c0 .803-.292 1.277-1.314 1.35l-12.085.73c-.767.036-1.132-.073-1.534-.584L3.62 17.62c-.438-.584-.62-1.021-.62-1.533V4.706c0-.657.292-1.204 1.132-1.277Z"></path></svg></a></li>
+                <li><a class="icon" href="https://github.com/JangSuhyeon/bookendwar2" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#555555" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"></path></svg></a></li>
+                <li><a id="openLoginModalBtn" class="button-blue">포트폴리오 구경하기<span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"></path><path fill="#fff" d="M13.06 3.283a1.5 1.5 0 0 0-2.12 0L5.281 8.939a1.5 1.5 0 0 0 2.122 2.122L10.5 7.965V19.5a1.5 1.5 0 0 0 3 0V7.965l3.096 3.096a1.5 1.5 0 1 0 2.122-2.122L13.06 3.283Z"></path></g></svg></span></a></li>
+            </ul>
+        </div>
+        <div class="login-mid">
+            <p>Book Report<br>Sharing Platform</p>
+            <img src="/images/books.png">
+        </div>
+        <div class="login-bot">
+            <div>
+                <p>퍼블리셔로 1년 6개월,<br>Java 개발자로 2년 근무한<br>백엔드 개발자입니다.</p>
+                <p>I have worked as a publisher<br>for 1 year and 6 moㄴ쇼ㅣnths, and<br>as a Java developer for 2 years.</p>
+                <img src="/images/spin.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--로그인 모달-->
+<div id="loginModal" class="modal">
+    <div class="loginModal-content">
+        <a class="close"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="#cccccc" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"></path></svg></a>
+        <h2>로그인</h2>
+        <button class="button-blue2" onclick="guestLogin()">게스트 로그인</button>
+        <a class="google-button" href="/oauth2/authorization/google">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 128 128"><path fill="#fff" d="M44.59 4.21a63.28 63.28 0 0 0 4.33 120.9a67.6 67.6 0 0 0 32.36.35a57.13 57.13 0 0 0 25.9-13.46a57.44 57.44 0 0 0 16-26.26a74.33 74.33 0 0 0 1.61-33.58H65.27v24.69h34.47a29.72 29.72 0 0 1-12.66 19.52a36.16 36.16 0 0 1-13.93 5.5a41.29 41.29 0 0 1-15.1 0A37.16 37.16 0 0 1 44 95.74a39.3 39.3 0 0 1-14.5-19.42a38.31 38.31 0 0 1 0-24.63a39.25 39.25 0 0 1 9.18-14.91A37.17 37.17 0 0 1 76.13 27a34.28 34.28 0 0 1 13.64 8q5.83-5.8 11.64-11.63c2-2.09 4.18-4.08 6.15-6.22A61.22 61.22 0 0 0 87.2 4.59a64 64 0 0 0-42.61-.38z"></path><path fill="#e33629" d="M44.59 4.21a64 64 0 0 1 42.61.37a61.22 61.22 0 0 1 20.35 12.62c-2 2.14-4.11 4.14-6.15 6.22Q95.58 29.23 89.77 35a34.28 34.28 0 0 0-13.64-8a37.17 37.17 0 0 0-37.46 9.74a39.25 39.25 0 0 0-9.18 14.91L8.76 35.6A63.53 63.53 0 0 1 44.59 4.21z"></path><path fill="#f8bd00" d="M3.26 51.5a62.93 62.93 0 0 1 5.5-15.9l20.73 16.09a38.31 38.31 0 0 0 0 24.63q-10.36 8-20.73 16.08a63.33 63.33 0 0 1-5.5-40.9z"></path><path fill="#587dbd" d="M65.27 52.15h59.52a74.33 74.33 0 0 1-1.61 33.58a57.44 57.44 0 0 1-16 26.26c-6.69-5.22-13.41-10.4-20.1-15.62a29.72 29.72 0 0 0 12.66-19.54H65.27c-.01-8.22 0-16.45 0-24.68z"></path><path fill="#319f43" d="M8.75 92.4q10.37-8 20.73-16.08A39.3 39.3 0 0 0 44 95.74a37.16 37.16 0 0 0 14.08 6.08a41.29 41.29 0 0 0 15.1 0a36.16 36.16 0 0 0 13.93-5.5c6.69 5.22 13.41 10.4 20.1 15.62a57.13 57.13 0 0 1-25.9 13.47a67.6 67.6 0 0 1-32.36-.35a63 63 0 0 1-23-11.59A63.73 63.73 0 0 1 8.75 92.4z"></path></svg></span>
+            구글 로그인
+        </a>
+    </div>
+</div>
+<div id="modal-background" class="modal-background"></div>
+
+<!--게스트 로그인 form-->
+<form id="guestLoginFrm" method="post" th:action="@{/login}" style="display: none">
+    <input type="text" name="username">
+    <input type="text" name="password" value="test010">
+    <button type="submit">클릭</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    // 게스트 로그인
+    function guestLogin() {
+        // 회원가입
+        $.ajax({
+            type:'GET',
+            url:'/join/guest',
+            success:function (res) {
+                $('input[name="username"]').val(res.username);
+                $('#guestLoginFrm').submit();
+            },
+            error:function () {
+                console.log('error');
+            }
+        })
+    }
+
+    $(function (){
+        // 모달 열기
+        $("#openLoginModalBtn").click(function(){
+            $("#loginModal").css("display", "block");
+            $("#modal-background").css("display", "block");
+        });
+
+        // 모달 닫기
+        $(".close, #modal-background").click(function(){
+            $("#loginModal").css("display", "none");
+            $("#modal-background").css("display", "none");
+        });
+    });
+</script>
+
+</body>
+</html>

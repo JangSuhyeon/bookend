@@ -93,3 +93,5 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle
+/src/main/resources/application-oauth.yml
+/src/main/resources/application-cafe24.yml

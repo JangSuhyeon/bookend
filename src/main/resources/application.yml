@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    include: cafe24,oauth
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+aladin:
+  url: http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbihj00431455001
+
+server:
+  port: 8080
