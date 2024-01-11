@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class LoginController {
 
     // 로그인(메인) 화면으로 이동
-    @GetMapping("")
+    @GetMapping("/page")
     public String goToLogin() {
         return "/login/login";
     }

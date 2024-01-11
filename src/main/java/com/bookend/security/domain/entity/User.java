@@ -49,4 +49,11 @@ public class User {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
+    // OAuth2UserServiceImpl에서 회원 정보 업데이트 시 사용
+    public User update(String name, String picture) {
+        this.name = name;
+        this.picture = picture;
+        return this;
+    }
 }

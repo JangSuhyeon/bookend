@@ -1,19 +1,18 @@
 package com.bookend.security.domain.dto;
 
 import com.bookend.security.domain.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private User user;
-
-    public UserDetailsImpl(User user) {
-        this.user = user;
-    }
 
     // 해당 유저의 권한목록 리턴
     @Override

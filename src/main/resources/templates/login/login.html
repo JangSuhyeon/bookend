@@ -66,6 +66,7 @@
             type:'GET',
             url:'/join/guest',
             success:function (res) {
+                console.log(res);
                 $('input[name="username"]').val(res.username);
                 $('#guestLoginFrm').submit();
             },
