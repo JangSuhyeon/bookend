@@ -1,10 +1,14 @@
-package com.bookend.review.domain.dto;
+package com.bookend.review.domain.entity;
 
+import com.bookend.review.domain.dto.ReviewRequestDto;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Entity
 public class Review {
@@ -26,5 +30,17 @@ public class Review {
     @PrePersist
     protected void setRegDt() {
         this.regDt = new Date(); // Review를 저장하기 전 작성일 등록
+    }
+
+    // dto -> entity
+    public static Review toEntity(ReviewRequestDto dto) {
+        return Review.builder()
+                .bookId(dto.getBookId())
+                .userId(dto.getUserId())
+                .score(dto.getScore())
+                .shortReview(dto.getShortReview())
+                .longReview(dto.getLongReview())
+                .openYn(dto.getOpenYn())
+                .build();
     }
 }

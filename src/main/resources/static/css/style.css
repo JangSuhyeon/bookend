@@ -582,8 +582,7 @@ body {
     top:12px;
 }
 .review-write-con .select2-container .select2-selection--single,
-.review-write-con .col > p,
-.review-write-con #shortReview{
+.review-write-con .col > p{
     display: inline-block;
     width:100% !important;
     min-height:50px;
@@ -600,6 +599,12 @@ body {
     padding:13px 15px;
 }
 .review-write-con #shortReview {
+    display: inline-block;
+    width:100% !important;
+    min-height:50px;
+    line-height:23px;
+    border:1px solid #ddd;
+    border-radius: 10px;
     padding:0 15px;
     box-sizing: border-box;
 }

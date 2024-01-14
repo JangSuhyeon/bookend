@@ -1,7 +1,7 @@
 package com.bookend.security.service;
 
 import com.bookend.security.domain.dto.OAuthAttributes;
-import com.bookend.security.domain.dto.SessionUser;
+import com.bookend.security.domain.SessionUser;
 import com.bookend.security.domain.entity.User;
 import com.bookend.security.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;

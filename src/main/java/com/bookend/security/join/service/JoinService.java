@@ -1,7 +1,7 @@
 package com.bookend.security.join.service;
 
 import com.bookend.security.domain.Role;
-import com.bookend.security.domain.dto.SessionUser;
+import com.bookend.security.domain.SessionUser;
 import com.bookend.security.domain.dto.UserResponseDto;
 import com.bookend.security.domain.entity.User;
 import com.bookend.security.repository.UserRepository;
@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @RequiredArgsConstructor

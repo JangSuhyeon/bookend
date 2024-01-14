@@ -2,6 +2,7 @@ package com.bookend.security.domain.dto;
 
 import com.bookend.security.domain.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Getter
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 

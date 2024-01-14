@@ -1,5 +1,6 @@
 package com.bookend.review.domain.dto;
 
+import com.bookend.review.domain.entity.Review;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,12 +24,14 @@ public class ReviewResponseDto {
     private Date modDt;             // 수정일
     private String regDt;           // 작성일
 
+    // 리스트를 쪼개어 dto로 변환
     public static List<ReviewResponseDto> toDtoList(List<Review> reviewList) {
         return reviewList.stream()
                 .map(ReviewResponseDto::toDto)
                 .collect(Collectors.toList());
     }
 
+    // entity -> dto
     public static ReviewResponseDto toDto(Review review) {
 
         SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
@@ -42,7 +45,7 @@ public class ReviewResponseDto {
                 .longReview(review.getLongReview())
                 .openYn(review.getOpenYn())
                 .modDt(review.getModDt())
-                .regDt(format.format(review.getRegDt()))
+                .regDt(format.format(review.getRegDt())) // 날짜 형식 변경
                 .build();
     }
 }

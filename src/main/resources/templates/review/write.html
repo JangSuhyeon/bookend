@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/defaultLayout}"
+      layout:fragment="Content"
+>
+    <head>
+	    <!-- inline JS 영역-->
+        <script src="/js/reviewWrite.js"></script>
+	</head>
+
+	<body>
+        <div class="review-contents">
+            <form class="review-write-con">
+                <div class="row mb-30 hr">
+                    <input type="hidden" id="title">
+                    <div class="col">
+                        <div class="col">
+                            <h2 class="input title">도서명</h2>
+                            <select id="searchBook" class="js-example-basic-single"></select>
+                        </div>
+                        <div class="row row-3">
+                            <div class="col">
+                                <h2 class="input title">작가</h2>
+                                <p id="author" class="input"></p>
+                            </div>
+                            <div class="col">
+                                <h2 class="input title">출판사</h2>
+                                <p id="publisher" class="input"></p>
+                            </div>
+                            <div class="col">
+                                <h2 class="input title">공개여부</h2>
+                                <div class="openChk">
+                                    <label><input type="radio" name="openYn" value="true" checked> 공개</label>
+                                    <label><input type="radio" name="openYn" value="false"> 비공개</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col cover">
+                        <img id="cover">
+                    </div>
+                </div>
+                <div class="row row-2 row-15">
+                    <div class="col">
+                        <h2 class="input title">취향도</h2>
+                        <div class="heart">
+                            <label for="checkbox-1"><input type="checkbox" id="checkbox-1" checked><span id="text-1">❤️</span></label>
+                            <label for="checkbox-2"><input type="checkbox" id="checkbox-2"><span id="text-2">🤍</span></label>
+                            <label for="checkbox-3"><input type="checkbox" id="checkbox-3"><span id="text-3">🤍</span></label>
+                            <label for="checkbox-4"><input type="checkbox" id="checkbox-4"><span id="text-4">🤍</span></label>
+                            <label for="checkbox-5"><input type="checkbox" id="checkbox-5"><span id="text-5">🤍</span></label>
+                        </div>
+                    </div>
+                    <div class="col mb-15">
+                        <h2 class="input title">한줄평</h2>
+                        <input type="text" class="input" id="shortReview" placeholder="130글자 이하로 남겨주세요. ;)">
+                    </div>
+                </div>
+                <div class="row row-textarea">
+                    <div class="col">
+                        <h2 class="input title">감상문</h2>
+                        <textarea class="textarea" id="longReview"></textarea>
+                    </div>
+                </div>
+
+                <div class="btn-controller">
+                    <button type="button" id="book-save-btn" class="review-write-btn">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
