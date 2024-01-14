@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 @RequestMapping("/login")
 public class LoginController {
 
-    // 로그인(메인) 화면으로 이동
+    // 로그인(메인) 페이지로 이동
     @GetMapping("/page")
     public String goToLogin() {
-        return "/login/login";
+        return "login/login";
     }
 
 }

@@ -40,6 +40,6 @@ public class JoinService {
         httpSession.invalidate(); // 현재 세션을 무효화 시킴
         httpSession.setAttribute("user", new SessionUser(user)); // 세션에 사용자 정보 저장
 
-        return User.toDto(user); // Entity -> DTO
+        return UserResponseDto.toDto(user); // Entity -> DTO
     }
 }

@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;            // PK
+    private Long userId;        // PK
 
     @Column(nullable = false)
     private String name;        // 회원이름
@@ -36,13 +36,6 @@ public class User {
     @PrePersist
     protected void setLastConDt() {
         this.lastConDt = new Date(); // User를 저장하기 전 마지막 로그인 시간 등록
-    }
-
-    public static UserResponseDto toDto(User user) {
-        return UserResponseDto.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .build();
     }
 
     // UserDetailsImple에서 권한목록을 리턴할 때 사용

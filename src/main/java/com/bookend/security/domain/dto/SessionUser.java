@@ -10,7 +10,7 @@ public class SessionUser {
     private String picture;
 
     public SessionUser(User user) {
-        this.id = user.getId();
+        this.id = user.getUserId();
         this.name = user.getName();
         this.username = user.getUsername();
         this.picture = user.getPicture();

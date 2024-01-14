@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--라이브러리 참조 : Thymeleaf & Thymeleaf Layout -->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!--공통 JS / CSS 영역을 관리하는 환경 영역-->
+    <head th:replace="~{common/fragments/defaultConfig :: defaultConfigFragment}"></head>
+
+    <body>
+        <div class="review-container">
+            <aside th:replace="~{common/fragments/defaultSidebar :: defaultSidebarFragment}"></aside>
+
+            <th:block layout:fragment="Content"></th:block>
+
+            <aside th:replace="~{common/fragments/defaultCalendar :: defaultCalendarFragment}"></aside>
+        </div>
+    </body>
+
+	<!--개발예정 안내 모달-->
+    <div id="devPlanModal" class="modal">
+        <div class="devPlanModal-content">
+            <h2>아직 개발 중입니다😌</h2>
+        </div>
+    </div>
+    <div id="devPlanModal-background" class="modal-background"></div>
+</html>

@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Bookend</title>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/loginLayout}"
+      layout:fragment="Content"
+>
 
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
 <body style="width:100vw; height:100vh;">
 <div class="main-container">
     <div class="login-controller">
@@ -56,7 +52,6 @@
     <button type="submit">클릭</button>
 </form>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
     // 게스트 로그인
