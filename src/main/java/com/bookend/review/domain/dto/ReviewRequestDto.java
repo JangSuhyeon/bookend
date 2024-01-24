@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class ReviewRequestDto {
 
+    private Long reviewId;      // 독후감 PK (독후감 수정/삭제 시 이용)
     private Boolean openYn;     // 공개여부
     private int score;          // 도서 점수
     private String shortReview; // 한줄평

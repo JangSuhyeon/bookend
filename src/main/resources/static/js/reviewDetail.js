@@ -19,4 +19,17 @@ $(function () {
     var score = parseInt($('.score').val()); // 점수 가져오기
     drawStars(score, $('.heart'));
 
+    $('#book-delete-btn').click(function () {
+        $.ajax({
+            type:'DELETE',
+            url:'/review/' + $('#reviewId').val(),
+            success:function (res) {
+                location.href="/";
+            },
+            error:function () {
+                alert('삭제에 실패했습니다.');
+            }
+        })
+    })
+
 })

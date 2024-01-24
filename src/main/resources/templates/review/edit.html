@@ -7,13 +7,14 @@
 >
     <head>
 	    <!-- inline JS 영역-->
-        <script src="/js/reviewDetail.js"></script>
+        <script src="/js/reviewEdit.js"></script>
 	</head>
 
 	<body>
         <div class="review-contents">
-            <div class="review-write-con review-detail-con">
-                <input type="hidden" id="reviewId" th:value="${review.reviewId}">
+            <form class="review-write-con review-update-con">
+                <input type="hidden" name="reviewId" th:value="${review.reviewId}">
+                <input type="hidden" id="prevOpenYn" th:value="${review.openYn}"/>
                 <input type="hidden" class="score" th:value="${review.score}">
 
                 <div class="row mb-30 hr">
@@ -24,7 +25,7 @@
                                 <h2 class="input title">작성자</h2>
                                 <p class="input" th:text="${review.user.name}"></p>
                             </div>
-                            <div class="col">
+                            <div class="col mb-15">
                                 <h2 class="input title">도서명</h2>
                                 <p class="input" th:text="${review.book.title}"></p>
                             </div>
@@ -41,8 +42,8 @@
                             <div class="col">
                                 <h2 class="input title">공개여부</h2>
                                 <div class="list-openYn" style="display: flex; align-items: center; flex:auto; ">
-                                    <p th:if="${review.openYn eq true}" class="list-open-y" style="line-height: 52px;font-size: 15px;font-weight: 500;">공개</p>
-                                    <p th:if="${review.openYn eq false}" class="list-open-n" style="line-height: 52px;font-size: 15px;color:#333;font-weight: 500;">비공개</p>
+                                    <input name="openYn" type="hidden" th:value="${review.openYn}">
+                                    <p id="openYn"></p>
                                 </div>
                             </div>
                         </div>
@@ -58,31 +59,20 @@
                     </div>
                     <div class="col mb-15">
                         <h2 class="input title">한줄평</h2>
-                        <p class="input" th:text="${review.shortReview}"></p>
+                        <input type="text" id="shortReview" class="input" th:value="${review.shortReview}"/>
                     </div>
                 </div>
                 <div class="row row-textarea">
                     <div class="col">
                         <h2 class="input title">감상문</h2>
-                        <textarea class="textarea" th:text="${review.longReview}" readonly></textarea>
+                        <textarea id="longReview" class="textarea" th:text="${review.longReview}"></textarea>
                     </div>
                 </div>
 
                 <div class="btn-controller">
-                    <!--Todo 목록보기 버튼 추가-->
-
-                    <!--자신이 작성한 글만 수정하기 버튼이 보임-->
-                    <a th:if="${review.userId eq loginUserId}" id="book-modify-btn" class="review-write-btn" th:href="@{/review/{reviewId}/edit(reviewId = ${review.reviewId})}">수정하기</a>
-                    <button th:if="${review.userId eq loginUserId}" type="button" id="book-delete-btn" class="book-delete-btn">삭제하기</button>
+                    <button type="button" id="book-update-btn" class="review-write-btn">저장하기</button>
                 </div>
-            </div>
+            </form>
         </div>
-
-        <!--채팅 참가하기 버튼-->
-        <a class="chat-plus-btn">
-            <span th:text="${review.book.title}"></span>
-            채팅 참가하기
-        </a>
-
     </body>
 </html>

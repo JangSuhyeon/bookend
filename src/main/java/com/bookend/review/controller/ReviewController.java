@@ -63,16 +63,6 @@ public class ReviewController {
         return restTemplate.getForEntity(aladinUri, String.class);
     }
 
-    // 독후감 저장
-    @PostMapping("/write")
-    public ResponseEntity<String> saveReview(@RequestBody ReviewRequestDto reviewRequestDto,
-                                             @LoginUser SessionUser loginUser) {
-
-        reviewService.save(reviewRequestDto, loginUser); // login user
-
-        return ResponseEntity.ok("success"); // todo 예외처리 필요
-    }
-
     // 독후감 작성 페이지로 이동
     @GetMapping("/{reviewId}")
     public String goToWrite(@PathVariable("reviewId")Long reviewId,
@@ -86,6 +76,52 @@ public class ReviewController {
         model.addAttribute("loginUser", loginUser);
 
         return "review/detail";
+    }
+
+    // 독후감 저장
+    @PostMapping("/write")
+    public ResponseEntity<String> saveReview(@RequestBody ReviewRequestDto reviewRequestDto,
+                                             @LoginUser SessionUser loginUser) {
+
+        reviewService.save(reviewRequestDto, loginUser); // login user
+
+        return ResponseEntity.ok("success"); // todo 예외처리 필요
+    }
+
+    // 독후감 수정 페이지로 이동
+    @GetMapping("/{reviewId}/edit")
+    public String goToEdit(@PathVariable("reviewId") Long reviewId,
+                           @LoginUser SessionUser loginUser,
+                           Model model) {
+
+        // 해당 review 조회
+        ReviewResponseDto review = reviewService.findById(reviewId);
+
+        model.addAttribute("review", review);
+        model.addAttribute("loginUser", loginUser);
+
+        return "review/edit";
+    }
+
+    // 독후감 수정
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<String> editReview(@RequestBody ReviewRequestDto reviewRequestDto) {
+
+        reviewService.edit(reviewRequestDto);
+
+        return ResponseEntity.ok("success");
+    }
+
+    // 독후감 삭제
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable("reviewId") Long reviewId,
+                                               @LoginUser SessionUser loginUser) {
+        // Todo 현재 로그인한 user와 작성자가 동일인인지 확인 필요
+
+        System.out.println("reviewId : " + reviewId);
+        reviewService.delete(reviewId);
+
+        return ResponseEntity.ok("success");
     }
 
 }

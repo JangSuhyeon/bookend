@@ -60,8 +60,29 @@ public class ReviewService {
     public ReviewResponseDto findById(Long reviewId) {
 
         // reviewId를 이용하여 review 조회
-        Review review = reviewRepository.findById(reviewId).orElse(null); // Todo review = null 예외처리
+        Review review = reviewRepository.findById(reviewId).orElseThrow(); // Todo 화면으로 보내지는 null 예외처리
 
         return ReviewResponseDto.toDto(review);
+    }
+
+    // 독후감 저장
+    public void edit(ReviewRequestDto reviewRequestDto) {
+
+        // 수정할 독후감 가져오기
+        Review review = reviewRepository.findById(reviewRequestDto.getReviewId()).orElseThrow(); // Todo 화면으로 보내지는 null 예외처리
+
+        // 독후감 수정
+        review.edit(reviewRequestDto);
+        reviewRepository.save(review);
+    }
+
+    // 독후감 삭제
+    public void delete(Long reviewId) {
+
+        // 삭제할 독후감 가져오기
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+
+        reviewRepository.delete(review);
+
     }
 }

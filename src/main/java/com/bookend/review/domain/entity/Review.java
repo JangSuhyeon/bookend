@@ -19,7 +19,6 @@ public class Review {
     private Long reviewId;       // PK
 
     @Column
-//    private Long userId;         // 작성자 PK
     private int score;           // 도서 점수
     private String shortReview;  // 한줄평
     private String longReview;   // 독후감
@@ -43,7 +42,6 @@ public class Review {
     // dto -> entity
     public static Review toEntity(ReviewRequestDto dto) {
         return Review.builder()
-//                .userId(dto.getUserId())
                 .score(dto.getScore())
                 .shortReview(dto.getShortReview())
                 .longReview(dto.getLongReview())
@@ -52,4 +50,12 @@ public class Review {
                 .user(dto.getUser())
                 .build();
     }
+
+    public void edit(ReviewRequestDto dto) {
+        this.openYn = dto.getOpenYn();
+        this.score = dto.getScore();
+        this.shortReview = dto.getShortReview();
+        this.longReview = dto.getLongReview();
+    }
+
 }
