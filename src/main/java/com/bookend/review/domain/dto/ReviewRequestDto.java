@@ -1,14 +1,13 @@
 package com.bookend.review.domain.dto;
 
+import com.bookend.review.domain.entity.Book;
+import com.bookend.security.domain.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class ReviewRequestDto {
-
-    private Long UserId;        // 작성자 id
-    private long BookId;        // 도서 id
 
     private Boolean openYn;     // 공개여부
     private int score;          // 도서 점수
@@ -20,4 +19,7 @@ public class ReviewRequestDto {
     private String author;      // 작가
     private String publisher;   // 출판사
     private String cover;       // 커버 이미지
+
+    private Book book;
+    private User user;
 }

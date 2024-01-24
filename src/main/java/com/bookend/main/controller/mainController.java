@@ -28,7 +28,9 @@ public class mainController {
 
         // 독후감 목록 조회
         List<ReviewResponseDto> reviewList = reviewService.findAll();
+
         model.addAttribute("reviewList", reviewList);
+        model.addAttribute("loginUser", loginUser);
 
         return "index";
     }

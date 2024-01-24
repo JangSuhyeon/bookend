@@ -1,6 +1,8 @@
 package com.bookend.review.domain.dto;
 
+import com.bookend.review.domain.entity.Book;
 import com.bookend.review.domain.entity.Review;
+import com.bookend.security.domain.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -24,6 +26,9 @@ public class ReviewResponseDto {
     private Date modDt;             // 수정일
     private String regDt;           // 작성일
 
+    private Book book;              // 도서
+    private User user;              // 작성자
+
     // 리스트를 쪼개어 dto로 변환
     public static List<ReviewResponseDto> toDtoList(List<Review> reviewList) {
         return reviewList.stream()
@@ -38,14 +43,15 @@ public class ReviewResponseDto {
 
         return ReviewResponseDto.builder()
                 .reviewId(review.getReviewId())
-                .bookId(review.getBookId())
-                .userId(review.getUserId())
+//                .userId(review.getUserId())
                 .score(review.getScore())
                 .shortReview(review.getShortReview())
                 .longReview(review.getLongReview())
                 .openYn(review.getOpenYn())
                 .modDt(review.getModDt())
                 .regDt(format.format(review.getRegDt())) // 날짜 형식 변경
+                .book(review.getBook())
+                .user(review.getUser())
                 .build();
     }
 }

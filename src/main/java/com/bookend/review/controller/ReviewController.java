@@ -1,6 +1,7 @@
 package com.bookend.review.controller;
 
 import com.bookend.review.domain.dto.ReviewRequestDto;
+import com.bookend.review.domain.dto.ReviewResponseDto;
 import com.bookend.review.service.ReviewService;
 import com.bookend.security.domain.annotation.LoginUser;
 import com.bookend.security.domain.SessionUser;
@@ -10,10 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,7 +34,11 @@ public class ReviewController {
 
     // 독후감 작성 페이지로 이동
     @GetMapping("/write")
-    public String goToWrite() {
+    public String goToWrite(@LoginUser SessionUser loginUser,
+                            Model model) {
+
+        model.addAttribute("loginUser", loginUser); // login user
+
         return "review/write";
     }
 
@@ -63,10 +66,26 @@ public class ReviewController {
     // 독후감 저장
     @PostMapping("/write")
     public ResponseEntity<String> saveReview(@RequestBody ReviewRequestDto reviewRequestDto,
-                                             @LoginUser SessionUser user) {
-        reviewService.save(reviewRequestDto, user);
+                                             @LoginUser SessionUser loginUser) {
+
+        reviewService.save(reviewRequestDto, loginUser); // login user
 
         return ResponseEntity.ok("success"); // todo 예외처리 필요
+    }
+
+    // 독후감 작성 페이지로 이동
+    @GetMapping("/{reviewId}")
+    public String goToWrite(@PathVariable("reviewId")Long reviewId,
+                            @LoginUser SessionUser loginUser,
+                            Model model) {
+
+        // 해당 review 조회
+        ReviewResponseDto review = reviewService.findById(reviewId);
+
+        model.addAttribute("review", review);
+        model.addAttribute("loginUser", loginUser);
+
+        return "review/detail";
     }
 
 }

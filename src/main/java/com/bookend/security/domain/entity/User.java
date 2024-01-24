@@ -1,11 +1,13 @@
 package com.bookend.security.domain.entity;
 
+import com.bookend.review.domain.entity.Review;
 import com.bookend.security.domain.Role;
 import com.bookend.security.domain.dto.UserResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @ToString
 @AllArgsConstructor
@@ -33,6 +35,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;          // 회원권한
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> review;
+
 
     @PrePersist
     protected void setLastConDt() {

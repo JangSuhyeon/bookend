@@ -20,9 +20,9 @@
         <ul>
             <li th:each="review:${reviewList}" class="review-item" th:data-review-id="${review.reviewId}">
                 <input type="hidden" class="list-score-value" th:value="${review.score}"/>
-<!--                <div class="review-book-img"><img th:src="${review.book.cover}"></div>-->
+                <div class="review-book-img"><img th:src="${review.book.cover}" alt="cover"></div>
                 <div class="review-book-contents">
-<!--                    <h2 th:text="${review.book.title}"></h2>-->
+                    <h2 th:text="${review.book.title}"></h2>
                     <p th:text="${review.shortReview}"></p>
                 </div>
                 <div class="review-book-info">
