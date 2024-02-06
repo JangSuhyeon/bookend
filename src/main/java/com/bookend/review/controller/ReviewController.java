@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -118,10 +119,21 @@ public class ReviewController {
                                                @LoginUser SessionUser loginUser) {
         // Todo 현재 로그인한 user와 작성자가 동일인인지 확인 필요
 
-        System.out.println("reviewId : " + reviewId);
         reviewService.delete(reviewId);
 
         return ResponseEntity.ok("success");
     }
 
+    // 독후감 검색
+    @ResponseBody
+    @PostMapping(value = "/search", produces = "application/json; charset=UTF-8")
+    public HashMap reviewSearch(@RequestBody HashMap<String, String> searchReview) {
+        HashMap<String, Object> result = new HashMap<>();
+
+        // 검색된 독후감 목록
+        List<ReviewResponseDto> reviewList = reviewService.findByBook_TitleContaining(searchReview.get("searchReview"));
+        result.put("reviewList", reviewList);
+
+        return result;
+    }
 }

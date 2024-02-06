@@ -2,14 +2,14 @@ package com.bookend.security.domain.entity;
 
 import com.bookend.review.domain.entity.Review;
 import com.bookend.security.domain.Role;
-import com.bookend.security.domain.dto.UserResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -36,8 +36,9 @@ public class User {
     @Column(nullable = false)
     private Role role;          // 회원권한
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Review> review;
+    private List<Review> review = new ArrayList<>();
 
 
     @PrePersist

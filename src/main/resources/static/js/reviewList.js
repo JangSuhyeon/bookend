@@ -39,40 +39,35 @@ $(function () {
             contentType:'application/json; charset=UTF-8',
             success:function (res) {
                 console.log(res);
-                var bookReviewList = res.bookReviewList;
-                bookReviewList.forEach(function (review) {
-                    // Create a new list item
-                    var listItem = $('<li>').addClass('review-item').attr('data-review-id', review.reviewId);
+                var bookReviewList = res.reviewList;
 
-                    // Add hidden input for score
-                    $('<input>').attr('type', 'hidden').addClass('list-score-value').attr('value', review.score).appendTo(listItem);
+                // 기존 리뷰 목록을 비우고 새로 받은 데이터로 채우기
+                $('.review-contents-list ul').empty();
 
-                    // Add book image
-                    $('<div>').addClass('review-book-img').append($('<img>').attr('src', review.book.cover)).appendTo(listItem);
-
-                    // Add book contents
-                    var bookContents = $('<div>').addClass('review-book-contents');
-                    $('<h2>').text(review.book.title).appendTo(bookContents);
-                    $('<p>').text(review.shortReview).appendTo(bookContents);
-                    bookContents.appendTo(listItem);
-
-                    // Add review info
-                    var reviewInfo = $('<div>').addClass('review-book-info');
-                    $('<p>').text(review.regDt).appendTo(reviewInfo);
-                    $('<p>').addClass('list-score').appendTo(reviewInfo);
-
-                    // Check and add openYn status
-                    if (review.openYn) {
-                        $('<p>').addClass('review-openYn').text('공개').appendTo(reviewInfo);
-                    } else {
-                        $('<p>').addClass('review-openYn').text('비공개').appendTo(reviewInfo);
-                    }
-
-                    reviewInfo.appendTo(listItem);
-
-                    // Append the list item to the review list
-                    $('.your-review-list-selector').append(listItem);
-                });
+                if (res.reviewList.length === 0) {
+                    // 검색된 독후감이 없을 경우 메시지 표시
+                    $('.review-contents-list ul').append('<li class="no-review-message">검색된 독후감이 없습니다.</li>');
+                } else {
+                    // 받은 데이터에서 reviewList 배열 순회
+                    $.each(res.reviewList, function (index, review) {
+                        // 리뷰 목록에 새로운 항목 추가
+                        $('.review-contents-list ul').append(
+                            '<li class="review-item" data-review-id="' + review.reviewId + '">' +
+                            '<input type="hidden" class="list-score-value" value="' + review.score + '"/>' +
+                            '<div class="review-book-img"><img src="' + review.book.cover + '" alt="cover"></div>' +
+                            '<div class="review-book-contents">' +
+                            '<h2>' + review.book.title + '</h2>' +
+                            '<p>' + review.shortReview + '</p>' +
+                            '</div>' +
+                            '<div class="review-book-info">' +
+                            '<p>' + review.regDt + '</p>' +
+                            '<p class="list-score"></p>' +
+                            '<p class="' + (review.openYn ? 'review-openYn' : 'review-closeYn') + '">' + (review.openYn ? '공개' : '비공개') + '</p>' +
+                            '</div>' +
+                            '</li>'
+                        );
+                    });
+                }
             }
         })
     });

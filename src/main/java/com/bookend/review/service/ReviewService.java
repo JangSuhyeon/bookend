@@ -8,12 +8,15 @@ import com.bookend.review.repository.ReviewRepository;
 import com.bookend.security.domain.SessionUser;
 import com.bookend.security.domain.dto.UserDetailsImpl;
 import com.bookend.security.repository.UserRepository;
+import groovy.lang.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.bookend.review.domain.entity.Book;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,7 +31,7 @@ public class ReviewService {
     public List<ReviewResponseDto> findAll() {
 
         // 독후감 목록 조회
-        List<Review> reviewList = reviewRepository.findAll();
+        List<Review> reviewList = reviewRepository.findAllByOrderByRegDtDesc();
 
         return ReviewResponseDto.toDtoList(reviewList); // entity -> dto
     }
@@ -84,5 +87,13 @@ public class ReviewService {
 
         reviewRepository.delete(review);
 
+    }
+
+    // 검색 키워드가 제목에 포함되어 있는 도서를 찾고 그 도서의 리뷰를 조회
+    public List<ReviewResponseDto> findByBook_TitleContaining(String searchReview) {
+
+        List<Review> reviewList = reviewRepository.findByBook_TitleContainingOrderByRegDtDesc(searchReview);
+
+        return ReviewResponseDto.toDtoList(reviewList);
     }
 }

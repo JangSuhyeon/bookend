@@ -1,10 +1,11 @@
 package com.bookend.review.domain.entity;
 
 import com.bookend.review.domain.dto.ReviewRequestDto;
-import com.bookend.security.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,6 +28,7 @@ public class Book {
     private String publisher;
     private String cover;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL) // 양방향 매핑에서 book이 주인 엔터티, book 엔티티에 대한 어떤 변경이든 연관된 엔티티에도 동일하게 적용
     private List<Review> review;                             // 양방향 매핑은 한 엔티티에서 다른 엔티티로의 참조를 가지고 있을 때, 그 반대 역시 참조할 수 있도록 설정하는 것
 

@@ -4,9 +4,11 @@ import com.bookend.review.domain.dto.ReviewRequestDto;
 import com.bookend.security.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,10 +28,12 @@ public class Review {
     private Date modDt;          // 수정일
     private Date regDt;          // 작성일
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bookId", nullable = false) // book_id 컬럼을 외래키로 지정, not null
     private Book book;           // 도서
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;           // 작성자

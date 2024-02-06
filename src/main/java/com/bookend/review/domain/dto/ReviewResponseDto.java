@@ -5,12 +5,14 @@ import com.bookend.review.domain.entity.Review;
 import com.bookend.security.domain.entity.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ToString
 @Getter
 @Builder
 public class ReviewResponseDto {
@@ -43,7 +45,6 @@ public class ReviewResponseDto {
 
         return ReviewResponseDto.builder()
                 .reviewId(review.getReviewId())
-//                .userId(review.getUserId())
                 .score(review.getScore())
                 .shortReview(review.getShortReview())
                 .longReview(review.getLongReview())
