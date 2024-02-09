@@ -8,6 +8,9 @@ import com.bookend.security.domain.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,29 @@ public class ReviewController {
     private String ALADIN_URL;
 
     private final HttpSession httpSession;
+
+    // 독후감 추가 로드
+    @ResponseBody
+    @PostMapping(value = "/load", produces = "application/json; charset=UTF-8")
+    public HashMap<String, Object> reviewSearch(@RequestBody HashMap<String, String> searchReview) {
+        HashMap<String, Object> result = new HashMap<>();
+        Page<ReviewResponseDto> reviewList;
+
+        Pageable pageable = PageRequest.of(Integer.parseInt(searchReview.get("page"))+1, Integer.parseInt(searchReview.get("pageSize"))); // 다음 페이지 조회
+
+        // 검색된 독후감 목록
+        String searchKeyword = searchReview.get("searchReview");
+        if (searchKeyword.isBlank()){
+            reviewList = reviewService.findAll(pageable); // 검색어 없을 때
+        }else{
+            reviewList = reviewService.findByBook_TitleContaining(searchReview.get("searchReview"), pageable); // 검색어 있을 때
+        }
+
+        result.put("reviewList", reviewList);
+        result.put("page", pageable);
+
+        return result;
+    }
 
     // 독후감 작성 페이지로 이동
     @GetMapping("/write")
@@ -122,18 +148,5 @@ public class ReviewController {
         reviewService.delete(reviewId);
 
         return ResponseEntity.ok("success");
-    }
-
-    // 독후감 검색
-    @ResponseBody
-    @PostMapping(value = "/search", produces = "application/json; charset=UTF-8")
-    public HashMap reviewSearch(@RequestBody HashMap<String, String> searchReview) {
-        HashMap<String, Object> result = new HashMap<>();
-
-        // 검색된 독후감 목록
-        List<ReviewResponseDto> reviewList = reviewService.findByBook_TitleContaining(searchReview.get("searchReview"));
-        result.put("reviewList", reviewList);
-
-        return result;
     }
 }

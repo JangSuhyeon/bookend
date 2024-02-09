@@ -17,6 +17,8 @@
         <input id="searchReview" type="text" placeholder="도서를 검색해주세요.">
     </div>
     <div class="review-contents-list">
+        <input type="hidden" id="page" th:value="${page.getPageNumber()}">
+        <input type="hidden" id="pageSize" th:value="${page.getPageSize()}">
         <ul>
             <li th:each="review:${reviewList}" class="review-item" th:data-review-id="${review.reviewId}">
                 <input type="hidden" class="list-score-value" th:value="${review.score}"/>

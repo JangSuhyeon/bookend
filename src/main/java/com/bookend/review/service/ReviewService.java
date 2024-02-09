@@ -10,6 +10,10 @@ import com.bookend.security.domain.dto.UserDetailsImpl;
 import com.bookend.security.repository.UserRepository;
 import groovy.lang.Tuple;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -28,12 +32,15 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     // 독후감 목록 조회
-    public List<ReviewResponseDto> findAll() {
+    public Page<ReviewResponseDto> findAll(Pageable pageable) {
+
+        int page = pageable.getPageNumber();     // 현재 페이지
+        int pageSize = pageable.getPageSize();   // 로드될 때마다 추가될 게시글 수
 
         // 독후감 목록 조회
-        List<Review> reviewList = reviewRepository.findAllByOrderByRegDtDesc();
+        Page<Review> reviewList = reviewRepository.findAll(PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "regDt")));
 
-        return ReviewResponseDto.toDtoList(reviewList); // entity -> dto
+        return reviewList.map(ReviewResponseDto::new); // entity -> dto
     }
 
     // 독후감 저장
@@ -90,10 +97,16 @@ public class ReviewService {
     }
 
     // 검색 키워드가 제목에 포함되어 있는 도서를 찾고 그 도서의 리뷰를 조회
-    public List<ReviewResponseDto> findByBook_TitleContaining(String searchReview) {
+    public Page<ReviewResponseDto> findByBook_TitleContaining(String searchReview,
+                                                              Pageable pageable) {
 
-        List<Review> reviewList = reviewRepository.findByBook_TitleContainingOrderByRegDtDesc(searchReview);
+        // 독후감 목록 조회
+        Page<Review> reviewList = reviewRepository.findByBook_TitleContaining(searchReview, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "regDt")));
 
-        return ReviewResponseDto.toDtoList(reviewList);
+        for (Review review : reviewList) {
+            System.out.println(review.toString());
+        }
+
+        return reviewList.map(ReviewResponseDto::new); // entity -> dto
     }
 }

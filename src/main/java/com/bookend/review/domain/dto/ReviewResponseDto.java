@@ -3,9 +3,7 @@ package com.bookend.review.domain.dto;
 import com.bookend.review.domain.entity.Book;
 import com.bookend.review.domain.entity.Review;
 import com.bookend.security.domain.entity.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +12,8 @@ import java.util.stream.Collectors;
 
 @ToString
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ReviewResponseDto {
 
@@ -30,6 +30,21 @@ public class ReviewResponseDto {
 
     private Book book;              // 도서
     private User user;              // 작성자
+
+    // entity -> dto
+    public ReviewResponseDto(Review review) {
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
+
+        this.reviewId = review.getReviewId();
+        this.score = review.getScore();
+        this.shortReview = review.getShortReview();
+        this.longReview = review.getLongReview();
+        this.openYn = review.getOpenYn();
+        this.modDt = review.getModDt();
+        this.regDt = format.format(review.getRegDt()); // 날짜 형식 변경
+        this.book = review.getBook();
+        this.user = review.getUser();
+    }
 
     // 리스트를 쪼개어 dto로 변환
     public static List<ReviewResponseDto> toDtoList(List<Review> reviewList) {
