@@ -45,29 +45,4 @@ public class ReviewResponseDto {
         this.book = review.getBook();
         this.user = review.getUser();
     }
-
-    // 리스트를 쪼개어 dto로 변환
-    public static List<ReviewResponseDto> toDtoList(List<Review> reviewList) {
-        return reviewList.stream()
-                .map(ReviewResponseDto::toDto)
-                .collect(Collectors.toList());
-    }
-
-    // entity -> dto
-    public static ReviewResponseDto toDto(Review review) {
-
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
-
-        return ReviewResponseDto.builder()
-                .reviewId(review.getReviewId())
-                .score(review.getScore())
-                .shortReview(review.getShortReview())
-                .longReview(review.getLongReview())
-                .openYn(review.getOpenYn())
-                .modDt(review.getModDt())
-                .regDt(format.format(review.getRegDt())) // 날짜 형식 변경
-                .book(review.getBook())
-                .user(review.getUser())
-                .build();
-    }
 }

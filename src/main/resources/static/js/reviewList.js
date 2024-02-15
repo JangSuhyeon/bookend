@@ -71,8 +71,8 @@ $(function () {
         $(this).append(drawStars(score));
     });
 
-    // li 요소 클릭 시 독후감 상세 화면으로 이동
-    $('.review-item').click(function() {
+    // li 요소 클릭 시 독후감 상세 화면으로 이동 (동적으로 생성된 review-item에도 작동되게 하기 위해 이벤트 위임)
+    $('.review-contents-list ul').on('click', '.review-item', function() {
         var reviewId = $(this).data('review-id');   // 독후감 PK
         window.location.href = '/review/' + reviewId;
     });

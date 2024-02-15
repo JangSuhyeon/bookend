@@ -22,6 +22,7 @@ import com.bookend.review.domain.entity.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -72,7 +73,7 @@ public class ReviewService {
         // reviewId를 이용하여 review 조회
         Review review = reviewRepository.findById(reviewId).orElseThrow(); // Todo 화면으로 보내지는 null 예외처리
 
-        return ReviewResponseDto.toDto(review);
+        return new ReviewResponseDto(review);
     }
 
     // 독후감 저장
@@ -108,5 +109,25 @@ public class ReviewService {
         }
 
         return reviewList.map(ReviewResponseDto::new); // entity -> dto
+    }
+
+    // 달력에 뿌려줄 해당 년월의 리뷰 조회
+    public List<ReviewResponseDto> findByYearAndMonth(int year, int month) {
+
+        List<Review> reviewList = reviewRepository.findByRegDtYearAndRegDtMonth(year, month);
+
+        return reviewList.stream()
+                .map(ReviewResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    // 선택한 일자의 뿌려줄 독후감 목록 조회
+    public List<ReviewResponseDto> findByYearAndMonthAndDay(int year, int month, int day) {
+
+        List<Review> reviewList = reviewRepository.findByYearAndMonthAndDayOrderByRegDtDesc(year, month, day);
+
+        return reviewList.stream()
+                .map(ReviewResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

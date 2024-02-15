@@ -3,8 +3,37 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       th:fragment="defaultCalendarFragment">
-    <!-- calendar -->
+
     <div class="review-right">
-        <img src="/images/calender.png" onclick="openDevPlanModal()">
+        <div class="cal-container">
+            <div class="cal-wrapper">
+                <div class="cal-month">
+                    <h2>5월 2024</h2>
+                    <div class="cal-arrow">
+                        <button id="prevMonth"><img src="/images/arrow_left.png"></button>
+                        <button id="nextMonth"><img src="/images/arrow_right.png"></button>
+                    </div>
+                </div>
+                <div class="cal-calendar">
+                    <ul class="cal-week">
+                        <li>SU</li>
+                        <li>MO</li>
+                        <li>TU</li>
+                        <li>WE</li>
+                        <li>TH</li>
+                        <li>FR</li>
+                        <li>SA</li>
+                    </ul>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-reviewList">
+            <h2>2024년 2월 14일</h2>
+            <ul></ul>
+        </div>
     </div>
+
+    <script src="/js/calendar.js"></script>
 </html>

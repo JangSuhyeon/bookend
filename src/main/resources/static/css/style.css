@@ -445,7 +445,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 .review-contents {
-    width:calc(100vw - 714px);
+    width:calc(100vw - 780px);
     padding:55px 45px;
     margin-left:414px;
     min-height:100vh;
@@ -455,10 +455,12 @@ body {
     position: fixed;
     top:0;
     right:0;
-    width:300px;
+    width:350px;
     height:100%;
-    padding:40px 25px;
+    padding:25px;
     background-color: #F5F7FB;
+    display: flex;
+    flex-direction: column;
 }
 .review-right > img {
     width:250px;
@@ -752,4 +754,211 @@ body {
 }
 .review-update-con #shortReview {
     background-color: #fff;
+}
+
+/*사이드 캘린더*/
+.cal-container {
+    padding: 22px 25px;
+    background-color: #fff;
+    border-radius: 15px;
+}
+.cal-month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 17px;
+}
+.cal-month > h2 {
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.cal-arrow {
+    display: flex;
+    gap:10px;
+}
+.cal-arrow > button {
+    background: inherit ;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    overflow:visible;
+    cursor:pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:25px;
+    height:25px;
+    border-radius: 4px;
+    background-color: #e7eef7;
+}
+.cal-arrow > button > img {
+    display: block;
+    width:11px;
+    height:auto;
+}
+.cal-calendar {
+    width:100%;
+}
+.cal-week {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    padding-bottom:9px;
+    border-bottom:1px solid #e3e9f8;
+}
+.cal-week li {
+    font-size:12px;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.month {
+    margin-bottom: 20px;
+}
+
+.week {
+    display: flex;
+}
+
+.day {
+    width: calc(100% / 7);
+    padding: 11px 0;
+    margin:1.5px 0;
+    text-align: center;
+    font-size:12px;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.day:hover {
+    background-color: #e2e2e2;
+    border-radius: 4px;
+    cursor: default;
+}
+.day:hover.with-review:after {
+    display: none;
+}
+
+.day-header {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.day-num {
+    margin-bottom: 5px;
+}
+
+.today {
+    background-color: #4c55e5;
+    color:#fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #ffc107;
+}
+.day.with-review {
+    position: relative;
+    cursor: pointer;
+}
+.day.with-review:after {
+    content:'';
+    display: block;
+    position:absolute;
+    bottom:-2px;
+    left:50%;
+    transform: translateX(-50%);
+    width:5px;
+    height:5px;
+    background-color: #9873ec;
+    border-radius: 50%;
+}
+.day.today.with-review:after {
+    bottom:-8px;
+}
+.day:hover.with-review:hover {
+    background-color: #9873ec;
+    color:#fff;
+}
+
+/*캘린더 독후감 목록*/
+.day-reviewList {
+    display: none;
+    margin-top:25px;
+    padding: 25px 18px 25px 25px;
+    background-color: #fff;
+    border-radius: 15px;
+    flex-direction: column;
+    overflow: auto;
+}
+.day-reviewList > ul {
+    overflow-y: auto; /* 내용이 넘치면 ul에만 스크롤바가 나타나도록 함 */
+    height: 100%;
+}
+.day-reviewList > ul::-webkit-scrollbar {
+    width: 10px;
+}
+
+.day-reviewList > ul::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+
+.day-reviewList > ul::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    background-color: #4c55e5;
+}
+
+.day-reviewList > ul > li {
+    cursor: pointer;
+    padding-bottom:20px;
+    margin-bottom:20px;
+    border-bottom:1px solid #e7eef7;
+    padding-right:9px;
+}
+.day-reviewList > ul > li:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+.day-reviewList > h2 {
+    flex:1;
+    font-size: 16px;
+    font-weight: 700;
+    color: #313131;
+    padding-bottom: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.day-review-top {
+    display: flex;
+    gap:13px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.day-review-thumb {
+    flex:0 0 50px;
+    height:60px;
+    overflow: hidden;
+}
+.day-review-thumb > img {
+    display: block;
+    width:100%;
+}
+.day-review-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #313131;
+    line-height:1.2;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.day-review-con {
+    font-size:14px;
+    line-height:1.2;
 }
