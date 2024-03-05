@@ -380,8 +380,9 @@ body {
     align-items: center;
     padding:13px 17px;
     border-radius: 10px;
+    cursor: pointer;
 }
-.review-chat-list li.active {
+.review-chat:hover {
     background-color: #fff;
 }
 .review-chat-list-profile {
@@ -961,4 +962,147 @@ body {
 .day-review-con {
     font-size:14px;
     line-height:1.2;
+}
+
+
+/*채팅방*/
+.chat-container {
+    display: flex;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    width: calc(100vw - 764px);
+    margin-left: 414px;
+}
+.chat-con {
+    flex-grow: 1;
+    height:100%;
+    overflow-y: scroll;
+    padding:13px 17px;
+}
+
+.chat-con::-webkit-scrollbar {
+    width: 10px;
+}
+
+.chat-con::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+
+.chat-con::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    background-color: #4c55e5;
+}
+.chat-date {
+    text-align: center;
+    margin:50px 0 40px;
+}
+.chat-date > span {
+    display: inline-block;
+    padding:6px 16px;
+    border-radius: 12.5px;
+    background-color: #eff1f3;
+    font-size:13px;
+    color:#697887;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.chat-profile {
+    position:relative;
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.chat-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top:5px;
+}
+.chat-profile > img {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width:100%;
+}
+.chat-name {
+    font-weight: bold;
+    color:#313131;
+}
+.chat-box > span {
+    font-size: 13px;
+    color:#a4adb8;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 0 8px 3px;
+}
+.chat-box {
+    display: flex;
+    margin:0 50px 12px;
+    align-items: end;
+}
+.chat-box > p {
+    display: inline-block;
+    padding:13px 15px;
+    border-radius: 8px;
+    background-color: #F5F7FB;
+    color:#122737;
+    box-shadow: rgba(50, 50, 93, 0.05) 0px 6px 12px -2px, rgba(0, 0, 0, 0.1) 0px 3px 7px -3px;
+}
+.me {
+    flex-direction: row-reverse;
+}
+.chat-box.me > p {
+    background-color: #4c55e5;
+    color:#fff;
+}
+.chat-input {
+    display: flex;
+    gap: 15px;
+    height:70px;
+    background-color: #e5ebfd;
+    padding:10px 20px;
+    box-sizing: border-box;
+}
+.chat-input > input {
+    flex-grow: 1;
+    border:0;
+    background-color: transparent;
+    color: #222;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.chat-input > input::placeholder {
+    color: #999;
+    font-weight: normal;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.chat-input > input:focus {
+    outline: none;
+}
+.chat-input > button {
+    position: relative;
+    border:0;
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    background-color: #4c55e5;
+}
+.chat-input > button > img {
+    position: absolute;
+    top:16px;
+    left:14px;
+    width:20px
+}
+.chat-entry {
+    text-align: center;
+    font-weight: bold;
+    margin: 25px 0;
+    padding: 15px 0;
+    background: #F5F7FB;
+    border-radius: 5px;
 }

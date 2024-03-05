@@ -104,10 +104,6 @@ public class ReviewService {
         // 독후감 목록 조회
         Page<Review> reviewList = reviewRepository.findByBook_TitleContaining(searchReview, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "regDt")));
 
-        for (Review review : reviewList) {
-            System.out.println(review.toString());
-        }
-
         return reviewList.map(ReviewResponseDto::new); // entity -> dto
     }
 

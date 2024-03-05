@@ -1,5 +1,7 @@
 package com.bookend.security.domain.entity;
 
+import com.bookend.chat.domain.entity.ChatMessage;
+import com.bookend.chat.domain.entity.ChatUser;
 import com.bookend.review.domain.entity.Review;
 import com.bookend.security.domain.Role;
 import jakarta.persistence.*;
@@ -39,7 +41,6 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> review = new ArrayList<>();
-
 
     @PrePersist
     protected void setLastConDt() {

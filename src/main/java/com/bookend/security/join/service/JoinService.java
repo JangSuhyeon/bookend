@@ -32,6 +32,7 @@ public class JoinService {
                 .password(encryptedPassword)
                 .name("게스트" + currentTimeMillis)
                 .role(Role.GUEST)
+                .picture("/images/guest_icon.png")
                 .build();
 
         userRepository.save(user); // User 저장

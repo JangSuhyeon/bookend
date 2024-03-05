@@ -19,7 +19,7 @@ $(document).ready(function() {
         for (var day = 1; day <= daysInMonth; day++) {
 
             var calDay = currentYear + "-" + (currentMonth+1).toString().padStart(2, '0') + "-" + day.toString().padStart(2, '0'); // 캘린더 날짜
-            var matchedReview = reviews.find(function(review) {               // 해당 날짜의 독후감이 있는지 확인
+            var matchedReview = reviews.find(function(review) {      // 해당 날짜의 독후감이 있는지 확인
                 return review.regDt === calDay;
             });
             if (matchedReview) {
@@ -64,7 +64,7 @@ $(document).ready(function() {
 
     // 페이지 첫 로드 시 호출
     getReviews(currentDate);
-    generateCalendar();
+    // generateCalendar();
 
     // 이전달 클릭
     $('#prevMonth').click(function() {
@@ -106,7 +106,9 @@ $(document).ready(function() {
                   month:searchMonth},
             async:false,
             success:function (res) {
-                reviews = res.reviewList;
+                console.log("Res!!");
+                console.log(res);
+                // reviews = res.reviewList;
             }
         })
     }

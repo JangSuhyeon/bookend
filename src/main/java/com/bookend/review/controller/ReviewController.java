@@ -155,27 +155,21 @@ public class ReviewController {
     // 달력에 뿌려줄 해당 일자의 리뷰 조회
     @PostMapping("/calendar")
     @ResponseBody
-    public HashMap calendar(@RequestParam("year")int year,
+    public HashMap<String,List<ReviewResponseDto>> calendar(@RequestParam("year")int year,
                             @RequestParam("month")int month,
                             @RequestParam(value = "day", required = false) Optional<Integer> optionalDay) { // 일자를 보낼수도 있고 안 보낼수도 있기 떄문에 Optional<>로 받음
 
-        HashMap<String,List> result = new HashMap<>();
+        HashMap<String,List<ReviewResponseDto>> result = new HashMap<>();
         List<ReviewResponseDto> reviewList = new ArrayList<>();
-        System.out.println("date");
-        System.out.println(year);
-        System.out.println(month);
+
         if(optionalDay.isPresent()){ // day가 있다면 년월일로 검색
             int day = optionalDay.get();
-            System.out.println(day);
             reviewList = reviewService.findByYearAndMonthAndDay(year, month, day);
         }else{                       // day가 없으면 년월로 검색
             reviewList = reviewService.findByYearAndMonth(year, month);
         }
 
         result.put("reviewList", reviewList);
-        for (ReviewResponseDto reviewResponseDto : reviewList) {
-            System.out.println(reviewResponseDto);
-        }
 
         return result;
     }

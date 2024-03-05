@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/defaultLayout}"
+      layout:fragment="Content"
+>
+
+<script src="/js/chat.js"></script>
+
+<input type="hidden" id="chatId" th:value="${chat.chatId}">
+<input type="hidden" id="userId" th:value="${loginUser.userId}">
+<input type="hidden" id="userNm" th:value="${loginUser.name}">
+<input type="hidden" id="firstEntry" th:value="${firstEntry}">
+
+<div class="chat-container">
+
+    <div class="chat-con">
+
+        <div th:each="msg, status : ${chatMessageList}" class="chat-wrap">
+            <!-- 첫번째 인덱스일 때 -->
+            <div th:if="${status.index == 0}" class="chat-wrap-first">
+                <div class="chat-date"><span th:text="${msg.sendDay}"></span></div>
+
+                <!-- 발신자가 나일 때 -->
+                <div th:if="${msg.user.userId eq loginUser.userId}" class="chat-user me">
+                    <input type="hidden" class="sender-user-id" th:value="${msg.user.userId}"/>
+                    <div class="chat-profile"><img th:src="${msg.user.getPicture()}"></div>
+                    <h2 class="chat-name" th:text="${msg.user.name}"></h2>
+                </div>
+                <div th:if="${msg.user.userId eq loginUser.userId}" class="chat-box chat-box-t1 me">
+                    <p th:text="${msg.message}"></p>
+                    <span th:text="${msg.sendTime}"></span>
+                </div>
+
+                <!-- 발신자가 내가 아닐 때 -->
+                <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-user">
+                    <input type="hidden" class="sender-user-id" th:value="${msg.user.userId}"/>
+                    <div class="chat-profile"><img th:src="${msg.user.picture}"></div>
+                    <h2 class="chat-name" th:text="${msg.user.name}"></h2>
+                </div>
+                <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-box chat-box-t1">
+                    <p th:text="${msg.message}"></p>
+                    <span th:text="${msg.sendTime}"></span>
+                </div>
+            </div>
+
+            <!-- 첫번째 인덱스가 아닐 때 -->
+            <div th:if="${status.index != 0}" class="chat-wrap-not-first">
+                <div class="chat-date"
+                     th:if="${chatMessageList[status.index - 1].sendDay != msg.sendDay}">
+                    <span th:text="${msg.sendDay}"></span>
+                </div>
+
+                <div th:if="${chatMessageList[status.index - 1].user.userId != msg.user.userId}">
+                    <!-- 발신자가 나일 때 -->
+                    <div th:if="${msg.user.userId eq loginUser.userId}" class="chat-user me">
+                        <input type="hidden" class="sender-user-id" th:value="${msg.user.userId}"/>
+                        <div class="chat-profile"><img th:src="${msg.user.getPicture()}"></div>
+                        <h2 class="chat-name" th:text="${msg.user.name}"></h2>
+                    </div>
+                    <div th:if="${msg.user.userId eq loginUser.userId}" class="chat-box chat-box-t1 me">
+                        <p th:text="${msg.message}"></p>
+                        <span th:text="${msg.sendTime}"></span>
+                    </div>
+
+                    <!-- 발신자가 내가 아닐 때 -->
+                    <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-user">
+                        <input type="hidden" class="sender-user-id" th:value="${msg.user.userId}"/>
+                        <div class="chat-profile"><img th:src="${msg.user.picture}"></div>
+                        <h2 class="chat-name" th:text="${msg.user.name}"></h2>
+                    </div>
+                    <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-box chat-box-t1">
+                        <p th:text="${msg.message}"></p>
+                        <span th:text="${msg.sendTime}"></span>
+                    </div>
+                </div>
+
+                <div th:if="${chatMessageList[status.index - 1].user.userId == msg.user.userId}">
+                    <!-- 발신자가 나일 때 -->
+                    <div th:if="${msg.user.userId eq loginUser.userId}" class="chat-box chat-box-t1 me">
+                        <p th:text="${msg.message}"></p>
+                        <span th:text="${msg.sendTime}"></span>
+                    </div>
+
+                    <!-- 발신자가 내가 아닐 때 -->
+                    <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-box chat-box-t1">
+                        <p th:text="${msg.message}"></p>
+                        <span th:text="${msg.sendTime}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="msgInput" placeholder="채팅을 입력해주세요.">
+        <button onclick="sendMsg()" id="msgSendBtn"><img src="/images/plane.png"></button>
+    </div>
+</div>
+
+</html>

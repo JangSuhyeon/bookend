@@ -1,5 +1,6 @@
 package com.bookend.review.domain.entity;
 
+import com.bookend.chat.domain.entity.Chat;
 import com.bookend.review.domain.dto.ReviewRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
