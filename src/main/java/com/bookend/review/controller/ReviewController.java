@@ -41,7 +41,8 @@ public class ReviewController {
     // 독후감 추가 로드
     @ResponseBody
     @PostMapping(value = "/load", produces = "application/json; charset=UTF-8")
-    public HashMap<String, Object> reviewSearch(@RequestBody HashMap<String, String> searchReview) {
+    public HashMap<String, Object> reviewSearch(@RequestBody HashMap<String, String> searchReview,
+                                                @LoginUser SessionUser loginUser) {
         HashMap<String, Object> result = new HashMap<>();
         Page<ReviewResponseDto> reviewList;
 
@@ -50,12 +51,13 @@ public class ReviewController {
         // 검색된 독후감 목록
         String searchKeyword = searchReview.get("searchReview");
         if (searchKeyword.isBlank()){
-            reviewList = reviewService.findAll(pageable); // 검색어 없을 때
+            reviewList = reviewService.findAll(pageable, loginUser.getUserId()); // 검색어 없을 때
         }else{
-            reviewList = reviewService.findByBook_TitleContaining(searchReview.get("searchReview"), pageable); // 검색어 있을 때
+            reviewList = reviewService.findByBook_TitleContaining(searchReview.get("searchReview"), pageable, loginUser.getUserId()); // 검색어 있을 때
         }
 
         result.put("reviewList", reviewList);
+        result.put("reviewsCount", reviewList.getTotalElements());
         result.put("page", pageable);
 
         return result;
@@ -113,6 +115,7 @@ public class ReviewController {
                                              @LoginUser SessionUser loginUser) {
 
         reviewService.save(reviewRequestDto, loginUser); // login user
+        System.out.println(reviewRequestDto.toString());
 
         return ResponseEntity.ok("success"); // todo 예외처리 필요
     }
@@ -160,7 +163,7 @@ public class ReviewController {
                             @RequestParam(value = "day", required = false) Optional<Integer> optionalDay) { // 일자를 보낼수도 있고 안 보낼수도 있기 떄문에 Optional<>로 받음
 
         HashMap<String,List<ReviewResponseDto>> result = new HashMap<>();
-        List<ReviewResponseDto> reviewList = new ArrayList<>();
+        List<ReviewResponseDto> reviewList;
 
         if(optionalDay.isPresent()){ // day가 있다면 년월일로 검색
             int day = optionalDay.get();

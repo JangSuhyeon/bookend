@@ -69,20 +69,15 @@
                 </div>
 
                 <div class="btn-controller">
-                    <!--Todo 목록보기 버튼 추가-->
+                    <a class="chat-enter-btn" th:href="'/chat/' + ${review.book.bookId}">채팅방 입장하기</a>
 
                     <!--자신이 작성한 글만 수정하기 버튼이 보임-->
+                    <!--Todo 목록보기 버튼 추가-->
                     <a th:if="${review.userId eq loginUserId}" id="book-modify-btn" class="review-write-btn" th:href="@{/review/{reviewId}/edit(reviewId = ${review.reviewId})}">수정하기</a>
                     <button th:if="${review.userId eq loginUserId}" type="button" id="book-delete-btn" class="book-delete-btn">삭제하기</button>
                 </div>
             </div>
         </div>
-
-        <!--채팅 참가하기 버튼-->
-        <a class="chat-plus-btn">
-            <span th:text="${review.book.title}"></span>
-            채팅 참가하기
-        </a>
 
     </body>
 </html>

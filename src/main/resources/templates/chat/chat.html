@@ -38,6 +38,10 @@
                     <input type="hidden" class="sender-user-id" th:value="${msg.user.userId}"/>
                     <div class="chat-profile"><img th:src="${msg.user.picture}"></div>
                     <h2 class="chat-name" th:text="${msg.user.name}"></h2>
+                    <div class="chat-review-more">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#4c55e5" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span>
+                        <a th:text="${msg.user.name} + '님의 독후감 보러가기'"></a>
+                    </div>
                 </div>
                 <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-box chat-box-t1">
                     <p th:text="${msg.message}"></p>
@@ -69,6 +73,10 @@
                         <input type="hidden" class="sender-user-id" th:value="${msg.user.userId}"/>
                         <div class="chat-profile"><img th:src="${msg.user.picture}"></div>
                         <h2 class="chat-name" th:text="${msg.user.name}"></h2>
+                        <div class="chat-review-more">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#4c55e5" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span>
+                            <p th:text="${msg.user.name} + '님의 독후감 보러가기'"></p>
+                        </div>
                     </div>
                     <div th:if="${msg.user.userId ne loginUser.userId}" class="chat-box chat-box-t1">
                         <p th:text="${msg.message}"></p>

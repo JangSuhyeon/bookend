@@ -1,12 +1,13 @@
-function openDevPlanModal() {
-    $("#devPlanModal").css("display", "block");
-    $("#devPlanModal-background").css("display", "block");
+function openChatOutModal(chatId) {
+    $('#chatOutBtn').attr('href', '/chat/out?chatId=' + chatId);
+    $("#chatOutModal").css("display", "block");
+    $("#chatOutModal-background").css("display", "block");
 }
 $(function () {
     // 모달 닫기
-    $(".close, #devPlanModal-background").click(function(){
-        $("#devPlanModal").css("display", "none");
-        $("#devPlanModal-background").css("display", "none");
+    $(".close, #chatOutModal-background, .modal-btn-n").click(function(){
+        $("#chatOutModal").css("display", "none");
+        $("#chatOutModal-background").css("display", "none");
     });
 
 })

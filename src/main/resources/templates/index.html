@@ -13,7 +13,7 @@
 <body>
 <div class="review-contents">
     <div class="review-contents-title">
-        <h2>나의 독후감</h2>
+        <h2>나의 독후감<span th:text="'(' + ${reviewsCount} + ')'"></span></h2>
         <input id="searchReview" type="text" placeholder="도서를 검색해주세요.">
     </div>
     <div class="review-contents-list">

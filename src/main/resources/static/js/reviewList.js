@@ -37,6 +37,7 @@ function loadPageAjax() {
             if (bookReviewList.length > 0) {
                 $('#page').val(res.page.pageNumber);
                 $('#pageSize').val(res.page.pageSize);
+                $('.review-contents-title > h2 > span').text('(' + res.reviewsCount + ')');
 
                 // 받은 데이터에서 reviewList 배열 순회
                 $.each(bookReviewList, function (index, review) {
@@ -57,6 +58,7 @@ function loadPageAjax() {
                     );
                 });
             }else if(searchReview !== "" && bookReviewList.length === 0 && page === '-1') { // 검색어가 있는데 조회된 결과가 없고 검색 후 첫 로드일 때(2페이지 부터는 해당 문구가 필요없기 때문)
+                $('.review-contents-title > h2 > span').text('(0)');
                 $('.review-contents-list ul').append('<li class="no-review-message">검색된 독후감이 없습니다.</li>');
             }
         }

@@ -5,7 +5,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <!--공통 JS / CSS 영역을 관리하는 환경 영역-->
-    <head th:replace="~{common/fragments/defaultConfig :: defaultConfigFragment}"></head>
+    <head th:replace="~{common/fragments/defaultConfig :: defaultConfigFragment}">
+        <link rel="shortcut icon" href="#">
+    </head>
 
     <body>
         <div class="review-container">
@@ -17,11 +19,15 @@
         </div>
     </body>
 
-	<!--개발예정 안내 모달-->
-    <div id="devPlanModal" class="modal">
-        <div class="devPlanModal-content">
-            <h2>아직 개발 중입니다😌</h2>
+	<!--채팅방 나가기 확인 모달-->
+    <div id="chatOutModal" class="modal">
+        <div class="modal-content">
+            <h2>채팅방을 나가시겠습니까?</h2>
+            <div class="modal-btn-con">
+                <a id="chatOutBtn" class="modal-btn-y">예</a>
+                <button class="modal-btn-n">아니오</button>
+            </div>
         </div>
     </div>
-    <div id="devPlanModal-background" class="modal-background"></div>
+    <div id="chatOutModal-background" class="modal-background"></div>
 </html>

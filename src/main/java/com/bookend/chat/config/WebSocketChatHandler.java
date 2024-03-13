@@ -62,7 +62,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         }
         Set<WebSocketSession> chatRoomSession = chatRoomSessionMap.get(roomId); // 해당 방 가져오기
 
-        // 가져온 방의 messageType이 ENTER 이면
+        // messageType이 ENTER 메세지 저장
         if (chatMessageDto.getMessageType().equals(ChatMessageDto.MessageType.ENTER)) {
             chatRoomSession.add(session); // 세션을 해당 방에 넣고
         }
@@ -70,6 +70,13 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
             removeClosedSession(chatRoomSession); // 현재 생성된 세션에 해당 방의 세션이 없으면 제거..?
         }
         // Todo 이해 안됨 END
+
+        // // messageType이 QUIT 메세지 저장
+        if (chatMessageDto.getMessageType().equals(ChatMessageDto.MessageType.QUIT)) {
+            sessions.remove(session);
+//            chatMessage.setMessage(chatMessage.getSender() + "님이 퇴장했습니다..");
+//            sendToEachSocket(sessions,new TextMessage(objectMapper.writeValueAsString(chatMessage)) );
+        }
 
         // messageType이 TAlK이면 메세지 저장
         if (chatMessageDto.getMessageType() == ChatMessageDto.MessageType.TALK) {

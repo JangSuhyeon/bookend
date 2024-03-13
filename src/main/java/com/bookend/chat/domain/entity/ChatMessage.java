@@ -30,7 +30,6 @@ public class ChatMessage {
     @Column(nullable = false)
     private ChatMessageDto.MessageType messageType;
 
-
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;

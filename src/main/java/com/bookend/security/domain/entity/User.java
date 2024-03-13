@@ -4,6 +4,8 @@ import com.bookend.chat.domain.entity.ChatMessage;
 import com.bookend.chat.domain.entity.ChatUser;
 import com.bookend.review.domain.entity.Review;
 import com.bookend.security.domain.Role;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,6 +19,7 @@ import java.util.List;
 @Getter
 @Builder
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User {
 
     @Id

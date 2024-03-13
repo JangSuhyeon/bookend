@@ -10,11 +10,11 @@ import lombok.ToString;
 public class ChatResponseDto {
 
     private Long chatId;
-    private Long bookId;
+    private Book book;
 
     public ChatResponseDto(Chat chat) {
         this.chatId = chat.getChatId();
-        this.bookId = chat.getBookId();
+        this.book = chat.getBook();
     }
 
 }

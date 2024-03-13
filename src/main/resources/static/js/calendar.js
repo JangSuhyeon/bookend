@@ -19,13 +19,17 @@ $(document).ready(function() {
         for (var day = 1; day <= daysInMonth; day++) {
 
             var calDay = currentYear + "-" + (currentMonth+1).toString().padStart(2, '0') + "-" + day.toString().padStart(2, '0'); // 캘린더 날짜
-            var matchedReview = reviews.find(function(review) {      // 해당 날짜의 독후감이 있는지 확인
-                return review.regDt === calDay;
-            });
-            if (matchedReview) {
-                weekHtml += '<div class="day with-review">' + day + '</div>'; // 해당 날짜에 독후감이 있으면 클래스 추가
-            } else {
-                weekHtml += '<div class="day">' + day + '</div>';             // 해당 날짜에 독후감이 없으면 기본
+            if (typeof reviews !== 'undefined') {
+                var matchedReview = reviews.find(function(review) {      // 해당 날짜의 독후감이 있는지 확인
+                    return review.regDt === calDay;
+                });
+                if (matchedReview) {
+                    weekHtml += '<div class="day with-review">' + day + '</div>'; // 해당 날짜에 독후감이 있으면 클래스 추가
+                } else {
+                    weekHtml += '<div class="day">' + day + '</div>';             // 해당 날짜에 독후감이 없으면 기본
+                }
+            }else {
+                weekHtml += '<div class="day">' + day + '</div>';
             }
 
             if ((firstDayOfMonth + day) % 7 === 0) {
@@ -64,7 +68,7 @@ $(document).ready(function() {
 
     // 페이지 첫 로드 시 호출
     getReviews(currentDate);
-    // generateCalendar();
+    generateCalendar();
 
     // 이전달 클릭
     $('#prevMonth').click(function() {
@@ -106,9 +110,7 @@ $(document).ready(function() {
                   month:searchMonth},
             async:false,
             success:function (res) {
-                console.log("Res!!");
-                console.log(res);
-                // reviews = res.reviewList;
+                reviews = res.reviewList;
             }
         })
     }
@@ -126,7 +128,7 @@ $(document).ready(function() {
             data:{year:searchYear,
                 month:searchMonth,
                 day:searchDay},
-            async:false,
+            // async:false,
             success:function (res) {
                 // 독후감 목록 뿌리기 전에 초기화
                 $('.day-reviewList').css("display", "flex");

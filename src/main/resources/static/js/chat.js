@@ -12,7 +12,6 @@ $(function () {
     };
     // 메세지 수신
     socket.onmessage = function (e) {
-        console.log(e.data);
         var msg = JSON.parse(e.data);
         var messageType = msg.messageType;  // 메세지 타립
         var message = msg.message;          // 메세지 내용
@@ -92,6 +91,21 @@ $(function () {
             $('#msgSendBtn').click();
         }
     });
+
+    $('#chatOutBtn').click(function (event) {
+        event.preventDefault();
+
+        var chatMsg = {
+            "messageType" : "QUIT",
+            "chatId" : $('#chatId').val(),
+            "userId" : $('#userId').val(),
+            // "message" : $('#msgInput').val(),
+            "senderNm" : $('#userNm').val()
+        };
+        socket.send(JSON.stringify(chatMsg));
+
+        window.location.href = $(this).attr("href");
+    })
 
 });
 

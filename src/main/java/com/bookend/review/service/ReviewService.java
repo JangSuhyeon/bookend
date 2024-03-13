@@ -33,13 +33,13 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     // 독후감 목록 조회
-    public Page<ReviewResponseDto> findAll(Pageable pageable) {
+    public Page<ReviewResponseDto> findAll(Pageable pageable, Long userId) {
 
         int page = pageable.getPageNumber();     // 현재 페이지
         int pageSize = pageable.getPageSize();   // 로드될 때마다 추가될 게시글 수
 
         // 독후감 목록 조회
-        Page<Review> reviewList = reviewRepository.findAll(PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "regDt")));
+        Page<Review> reviewList = reviewRepository.findByUserUserId(PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "regDt")), userId);
 
         return reviewList.map(ReviewResponseDto::new); // entity -> dto
     }
@@ -99,10 +99,11 @@ public class ReviewService {
 
     // 검색 키워드가 제목에 포함되어 있는 도서를 찾고 그 도서의 리뷰를 조회
     public Page<ReviewResponseDto> findByBook_TitleContaining(String searchReview,
-                                                              Pageable pageable) {
+                                                              Pageable pageable,
+                                                              Long userId) {
 
         // 독후감 목록 조회
-        Page<Review> reviewList = reviewRepository.findByBook_TitleContaining(searchReview, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "regDt")));
+        Page<Review> reviewList = reviewRepository.findByBook_TitleContainingAndUserUserId(searchReview, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "regDt")), userId);
 
         return reviewList.map(ReviewResponseDto::new); // entity -> dto
     }

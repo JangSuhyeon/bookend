@@ -238,14 +238,14 @@ body {
 }
 
 .loginModal-content>h2,
-.devPlanModal-content>h2{
+.modal-content>h2{
     font-size: 32px;
     font-weight: 700;
     color: #393939;
     text-align: center;
     margin-bottom: 35px;
 }
-.devPlanModal-content>h2 {
+.modal-content>h2 {
     margin-bottom: 0;
 }
 
@@ -273,6 +273,39 @@ body {
     padding-right: 8px;
     height:22px;
     line-height:22px;
+}
+.modal .modal-btn-con {
+    width:100%;
+    display: flex;
+    gap: 10px;
+    margin-top:35px;
+}
+.modal .modal-btn-con > button {
+    width:100%;
+}
+.modal-btn-y {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #4c55e5;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+}
+.modal-btn-n {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    border: 1px solid #555;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
 }
 
 
@@ -345,6 +378,19 @@ body {
     font-size:15px;
     font-weight: 500;
 }
+.chat-enter-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    padding:18px 0;
+    background-color: #fd5032;
+    color:#fff;
+    font-size:16px;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-right:auto;
+}
 .review-write-btn {
     display: flex;
     justify-content: center;
@@ -378,7 +424,7 @@ body {
 .review-chat-list li {
     display: flex;
     align-items: center;
-    padding:13px 17px;
+    padding:13px 10px 13px 5px ;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -416,10 +462,14 @@ body {
     width:160px;
 }
 .review-chat-list-info >h2 {
+    width:100%;
     font-size:16px;
     font-weight: 700;
     color:#313131;
     padding-bottom:8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .review-chat-list-info >p {
     font-size:14px;
@@ -429,6 +479,13 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.review-chat-out {
+    display: none;
+    margin-left:auto;
+}
+.review-chat-list li:hover > .review-chat-out {
+    display: inline-block;
 }
 .review-chat-list-alert {
     display: flex;
@@ -479,6 +536,13 @@ body {
     font-size:22px;
     color:#313131;
     font-weight: 700;
+}
+.review-contents-title > h2 > span{
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(76, 85, 229);
+    padding-left: 7px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 .review-contents-title > input {
     width:250px;
@@ -572,6 +636,7 @@ body {
     align-items: start;
 }
 .review-write-con .row > * {
+    width:100%;
     flex-grow: 1;
 }
 .review-write-con .title {
@@ -1028,6 +1093,30 @@ body {
     left:50%;
     transform: translate(-50%, -50%);
     width:100%;
+}
+.chat-user .chat-review-more {
+    cursor: pointer;
+}
+.chat-user .chat-review-more > span {
+    display: flex;
+    background: #F5F7FB;
+    padding: 4px;
+    border-radius: 12px;
+}
+.chat-user .chat-review-more > p {
+    display: none;
+    background: #F5F7FB;
+    padding: 7px 9px;
+    border-radius: 12px;
+    color: #4c55e5;
+    font-weight: bold;
+    font-size: 12px;
+}
+.chat-user .chat-review-more:hover > span {
+    display: none;
+}
+.chat-user .chat-review-more:hover > p{
+    display: flex;
 }
 .chat-name {
     font-weight: bold;

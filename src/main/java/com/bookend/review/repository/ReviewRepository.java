@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    Page<Review> findByBook_TitleContaining(String searchReview, PageRequest pageable);
+    Page<Review> findByBook_TitleContainingAndUserUserId(String searchReview, PageRequest pageable, Long userId);
 
     @Query("SELECT e FROM Review e WHERE YEAR(e.regDt) = :year AND MONTH(e.regDt) = :month")
     List<Review> findByRegDtYearAndRegDtMonth(int year, int month);
 
     @Query("SELECT e FROM Review e WHERE YEAR(e.regDt) = :year AND MONTH(e.regDt) = :month AND DAY(e.regDt) = :day")
     List<Review> findByYearAndMonthAndDayOrderByRegDtDesc(int year, int month, int day);
+
+    Page<Review> findByUserUserId(PageRequest regDt, Long userId);
 }
