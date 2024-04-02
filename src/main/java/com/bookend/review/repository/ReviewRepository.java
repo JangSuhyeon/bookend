@@ -12,11 +12,13 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Page<Review> findByBook_TitleContainingAndUserUserId(String searchReview, PageRequest pageable, Long userId);
 
-    @Query("SELECT e FROM Review e WHERE YEAR(e.regDt) = :year AND MONTH(e.regDt) = :month")
-    List<Review> findByRegDtYearAndRegDtMonth(int year, int month);
+    @Query("SELECT e FROM Review e WHERE YEAR(e.regDt) = :year AND MONTH(e.regDt) = :month AND e.user.userId = :userId")
+    List<Review> findByRegDtYearAndRegDtMonthAndUserUserId(int year, int month, Long userId);
 
-    @Query("SELECT e FROM Review e WHERE YEAR(e.regDt) = :year AND MONTH(e.regDt) = :month AND DAY(e.regDt) = :day")
-    List<Review> findByYearAndMonthAndDayOrderByRegDtDesc(int year, int month, int day);
+    @Query("SELECT e FROM Review e WHERE YEAR(e.regDt) = :year AND MONTH(e.regDt) = :month AND DAY(e.regDt) = :day AND e.user.userId = :userId")
+    List<Review> findByYearAndMonthAndDayAndUserUserIdOrderByRegDtDesc(int year, int month, int day, Long userId);
 
     Page<Review> findByUserUserId(PageRequest regDt, Long userId);
+
+    Review findByUserUserIdAndBookBookId(Long senderUserId, Long senderBookId);
 }

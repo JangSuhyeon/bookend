@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ChatUserRepository extends JpaRepository<ChatUser, Long> {
-    ChatUser findByUserIdAndChatId(Long userId, Long chatId);
+    ChatUser findByUserUserIdAndChatRoomChatRoomIdAndOutYn(Long userId, Long chatId, boolean outYn);
 
-    List<ChatUser> findByuserId(Long userId);
+    List<ChatUser> findByUserUserIdAndOutYn(Long userId, boolean outYn);
 }

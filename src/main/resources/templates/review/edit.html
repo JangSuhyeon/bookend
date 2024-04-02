@@ -23,21 +23,21 @@
                         <div class="row row-2 row-15">
                             <div class="col">
                                 <h2 class="input title">작성자</h2>
-                                <p class="input" th:text="${review.user.name}"></p>
+                                <p class="input" th:text="${review.name}"></p>
                             </div>
                             <div class="col mb-15">
                                 <h2 class="input title">도서명</h2>
-                                <p class="input" th:text="${review.book.title}"></p>
+                                <p class="input" th:text="${review.title}"></p>
                             </div>
                         </div>
                         <div class="row row-3">
                             <div class="col">
                                 <h2 class="input title">작가</h2>
-                                <p class="input" th:text="${review.book.author}"></p>
+                                <p class="input" th:text="${review.author}"></p>
                             </div>
                             <div class="col">
                                 <h2 class="input title">출판사</h2>
-                                <p class="input" th:text="${review.book.publisher}"></p>
+                                <p class="input" th:text="${review.publisher}"></p>
                             </div>
                             <div class="col">
                                 <h2 class="input title">공개여부</h2>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col cover">
-                        <img th:src="${review.book.cover}">
+                        <img th:src="${review.cover}">
                     </div>
                 </div>
                 <div class="row row-2 row-15">
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col mb-15">
                         <h2 class="input title">한줄평</h2>
-                        <input type="text" id="shortReview" class="input" th:value="${review.shortReview}"/>
+                        <input type="text" id="shortReview" class="input" th:value="${review.shortReview}" maxlength="130"/>
                     </div>
                 </div>
                 <div class="row row-textarea">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="btn-controller">
-                    <button type="button" id="book-update-btn" class="review-write-btn">저장하기</button>
+                    <button type="button" id="book-update-btn" class="btn-type-4 btn-gray">저장하기</button>
                 </div>
             </form>
         </div>

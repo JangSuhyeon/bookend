@@ -1,6 +1,5 @@
 package com.bookend.security.join.controller;
 
-import com.bookend.security.domain.dto.UserResponseDto;
 import com.bookend.security.join.service.JoinService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +14,13 @@ public class JoinController {
 
     private final JoinService joinService;
 
-    // 게스트 회원가입
+    // 게스트 계정 생성
     @GetMapping("/guest")
-    public ResponseEntity<UserResponseDto> registerGuestUser() {
+    public ResponseEntity<String> registerGuestUser() {
 
-        UserResponseDto guest = joinService.registerGuestUser();
+        String username = joinService.registerGuestUser();
 
-        return ResponseEntity.ok(guest);
+        return ResponseEntity.ok(username);
     }
 
 }

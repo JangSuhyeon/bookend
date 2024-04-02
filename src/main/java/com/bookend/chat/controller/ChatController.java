@@ -1,9 +1,8 @@
 package com.bookend.chat.controller;
 
 import com.bookend.chat.domain.dto.ChatMessageDto;
-import com.bookend.chat.domain.dto.ChatResponseDto;
+import com.bookend.chat.domain.dto.ChatRoomResponseDto;
 import com.bookend.chat.domain.dto.ChatUserResponseDto;
-import com.bookend.chat.domain.entity.Chat;
 import com.bookend.chat.service.ChatService;
 import com.bookend.security.domain.SessionUser;
 import com.bookend.security.domain.annotation.LoginUser;
@@ -45,22 +44,16 @@ public class ChatController {
                            @LoginUser SessionUser loginUser) {
 
         log.info("{} 에 {} 님이 입장했습니다.", bookId, loginUser.getName());
-        long userId = loginUser.getUserId();
 
-        // 해당 bookId의 채팅방 존재 여부에 따라 분기처리
-        ChatResponseDto chat = chatService.findByBookId(bookId);
-        long chatId = chat.getChatId();
+        // 채팅방 조회
+        ChatRoomResponseDto chatRoom = chatService.findByBookId(bookId);
 
         // 채팅방에 처음 입장한 순간부터 지금까지의 채팅 불러오기
-        HashMap<String, Object> result = chatService.findChatByUserAndChatId(userId, chatId);
-        List<ChatMessageDto> chatMessageList = (List<ChatMessageDto>) result.get("chatMessageDtoList");
-        boolean firstEntry = (boolean) result.get("firstEntry");
-        for (ChatMessageDto chatMessageDto : chatMessageList) {
-            System.out.println(chatMessageDto.toString());
-        }
-        model.addAttribute("chat", chat);
-        model.addAttribute("chatMessageList", chatMessageList);
-        model.addAttribute("firstEntry", firstEntry);
+        HashMap<String, Object> result = chatService.findChatByUserAndChatId(loginUser.getUserId(), chatRoom.getChatRoomId());
+
+        model.addAttribute("chatRoom", chatRoom);
+        model.addAttribute("chatMessageList", result.get("chatMessageDtoList"));
+        model.addAttribute("firstEntry", result.get("firstEntry"));
         model.addAttribute("loginUser", loginUser);
 
         return "chat/chat";

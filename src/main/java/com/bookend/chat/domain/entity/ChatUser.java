@@ -19,18 +19,31 @@ public class ChatUser {
     private Long chatUserId;
 
     @Column
-    private Long chatId;
-    private Long userId;
-    private Date firstEnterTime;
+    private Date enterDateTime;
+    private Boolean outYn;
 
-    public ChatUser (Long chatId, Long userId) {
-        this.chatId = chatId;
-        this.userId = userId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "chatId", nullable = false)
+    private ChatRoom chatRoom;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @PrePersist
-    protected void setFirstEnterTime() {
-        this.firstEnterTime = new Date();
+    protected void setEnterDateTime() {
+        this.enterDateTime = new Date();
+    }
+
+    public ChatUser (ChatRoom chatRoom, User user) {
+        this.outYn = false;
+        this.chatRoom = chatRoom;
+        this.user = user;
+    }
+
+    // 채팅방 나가기 상태 변경
+    public void setOutYn(boolean outYn) {
+        this.outYn = outYn;
     }
 
 }

@@ -2,6 +2,7 @@ package com.bookend.review.controller;
 
 import com.bookend.review.domain.dto.ReviewRequestDto;
 import com.bookend.review.domain.dto.ReviewResponseDto;
+import com.bookend.review.domain.entity.Review;
 import com.bookend.review.service.ReviewService;
 import com.bookend.security.domain.annotation.LoginUser;
 import com.bookend.security.domain.SessionUser;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -63,6 +65,21 @@ public class ReviewController {
         return result;
     }
 
+    // 독후감 상세보기 페이지로 이동
+    @GetMapping("/{reviewId}")
+    public String goToWrite(@PathVariable("reviewId")Long reviewId,
+                            @LoginUser SessionUser loginUser,
+                            Model model) {
+
+        // 해당 review 조회
+        ReviewResponseDto review = reviewService.findById(reviewId);
+
+        model.addAttribute("review", review);
+        model.addAttribute("loginUser", loginUser);
+
+        return "review/detail";
+    }
+
     // 독후감 작성 페이지로 이동
     @GetMapping("/write")
     public String goToWrite(@LoginUser SessionUser loginUser,
@@ -94,30 +111,18 @@ public class ReviewController {
         return restTemplate.getForEntity(aladinUri, String.class);
     }
 
-    // 독후감 작성 페이지로 이동
-    @GetMapping("/{reviewId}")
-    public String goToWrite(@PathVariable("reviewId")Long reviewId,
-                            @LoginUser SessionUser loginUser,
-                            Model model) {
-
-        // 해당 review 조회
-        ReviewResponseDto review = reviewService.findById(reviewId);
-
-        model.addAttribute("review", review);
-        model.addAttribute("loginUser", loginUser);
-
-        return "review/detail";
-    }
-
     // 독후감 저장
     @PostMapping("/write")
     public ResponseEntity<String> saveReview(@RequestBody ReviewRequestDto reviewRequestDto,
                                              @LoginUser SessionUser loginUser) {
 
-        reviewService.save(reviewRequestDto, loginUser); // login user
-        System.out.println(reviewRequestDto.toString());
+        Review review = reviewService.save(reviewRequestDto, loginUser); // login user
 
-        return ResponseEntity.ok("success"); // todo 예외처리 필요
+        // 저장에 실패했다면 에러 코드 전송
+        if (review.getReviewId() == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to save review");
+        else
+            return ResponseEntity.ok("success");
     }
 
     // 독후감 수정 페이지로 이동
@@ -139,18 +144,20 @@ public class ReviewController {
     @PutMapping("/{reviewId}")
     public ResponseEntity<String> editReview(@RequestBody ReviewRequestDto reviewRequestDto) {
 
-        reviewService.edit(reviewRequestDto);
+        Review review = reviewService.edit(reviewRequestDto);
 
-        return ResponseEntity.ok("success");
+        if(review == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to edit review");
+        else
+            return ResponseEntity.ok("success");
     }
 
     // 독후감 삭제
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<String> deleteReview(@PathVariable("reviewId") Long reviewId,
                                                @LoginUser SessionUser loginUser) {
-        // Todo 현재 로그인한 user와 작성자가 동일인인지 확인 필요
 
-        reviewService.delete(reviewId);
+        reviewService.delete(reviewId, loginUser.getUserId());
 
         return ResponseEntity.ok("success");
     }
@@ -160,19 +167,31 @@ public class ReviewController {
     @ResponseBody
     public HashMap<String,List<ReviewResponseDto>> calendar(@RequestParam("year")int year,
                             @RequestParam("month")int month,
-                            @RequestParam(value = "day", required = false) Optional<Integer> optionalDay) { // 일자를 보낼수도 있고 안 보낼수도 있기 떄문에 Optional<>로 받음
+                            @RequestParam(value = "day", required = false) Integer optionalDay,
+                            @LoginUser SessionUser sessionUser) { // 일자를 보낼수도 있고 안 보낼수도 있기 떄문에 Optional<>로 받음
 
         HashMap<String,List<ReviewResponseDto>> result = new HashMap<>();
-        List<ReviewResponseDto> reviewList;
+        List<ReviewResponseDto> reviewList = new ArrayList<>();
 
-        if(optionalDay.isPresent()){ // day가 있다면 년월일로 검색
-            int day = optionalDay.get();
-            reviewList = reviewService.findByYearAndMonthAndDay(year, month, day);
+        if(optionalDay != null){ // day가 있다면 년월일로 검색
+            reviewList = reviewService.findByYearAndMonthAndDay(year, month, optionalDay, sessionUser.getUserId());
         }else{                       // day가 없으면 년월로 검색
-            reviewList = reviewService.findByYearAndMonth(year, month);
+            reviewList = reviewService.findByYearAndMonth(year, month, sessionUser.getUserId());
         }
 
         result.put("reviewList", reviewList);
+
+        return result;
+    }
+
+    // 모달에서 보여줄 독후감 조회
+    @GetMapping("/modal")
+    @ResponseBody
+    public HashMap<String, Object> goToModal(@RequestParam("senderReviewId") Long senderReviewId) {
+        HashMap<String, Object> result = new HashMap<>();
+
+        ReviewResponseDto review = reviewService.findById(senderReviewId);
+        result.put("review", review);
 
         return result;
     }

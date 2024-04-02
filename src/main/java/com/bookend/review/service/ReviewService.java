@@ -7,9 +7,11 @@ import com.bookend.review.repository.BookRepository;
 import com.bookend.review.repository.ReviewRepository;
 import com.bookend.security.domain.SessionUser;
 import com.bookend.security.domain.dto.UserDetailsImpl;
+import com.bookend.security.domain.entity.User;
 import com.bookend.security.repository.UserRepository;
 import groovy.lang.Tuple;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
@@ -45,55 +48,58 @@ public class ReviewService {
     }
 
     // 독후감 저장
-    public void save(ReviewRequestDto reviewRequestDto, SessionUser user) {
+    public Review save(ReviewRequestDto reviewRequestDto, SessionUser user) {
+        Review review = new Review();
 
-        Long id;
-        if (user != null) { // 구글 계정
-            id = user.getUserId();
-            reviewRequestDto.setUser(userRepository.findById(id).orElse(null)); // Todo null 예외 처리
-        } else {
-            id = null; // Todo 에러 예외 처리
+        if (user != null) {
+            userRepository.findById(user.getUserId()).ifPresent(reviewRequestDto::setUser);
+
+            Book book = bookRepository.findByIsbn(reviewRequestDto.getIsbn());        // 기존에 저장된 도서인지 확인
+            if (book == null) book = bookRepository.save(new Book(reviewRequestDto)); // 기존에 저장된 도서가 아니면 저장
+            reviewRequestDto.setBook(book);
+
+            // 독후감 저장
+            review = reviewRepository.save(new Review(reviewRequestDto));
+        }else{
+            log.error("user is null");
         }
 
-        Book book = bookRepository.findByIsbn(reviewRequestDto.getIsbn()); // 기존에 저장된 도서인지 확인
-        if (book == null) {
-            Book newBook = Book.toEntity(reviewRequestDto);
-            book = bookRepository.save(newBook); // 기존에 저장된 도서가 아니면 저장
-        }
-        reviewRequestDto.setBook(book);
-
-        // 독후감 저장
-        Review review = Review.toEntity(reviewRequestDto);
-        reviewRepository.save(review);
+        return review;
     }
 
     // 해당 review 조회
     public ReviewResponseDto findById(Long reviewId) {
 
         // reviewId를 이용하여 review 조회
-        Review review = reviewRepository.findById(reviewId).orElseThrow(); // Todo 화면으로 보내지는 null 예외처리
+        Review review = reviewRepository.findById(reviewId).orElse(null);
 
         return new ReviewResponseDto(review);
     }
 
     // 독후감 저장
-    public void edit(ReviewRequestDto reviewRequestDto) {
+    public Review edit(ReviewRequestDto reviewRequestDto) {
 
         // 수정할 독후감 가져오기
-        Review review = reviewRepository.findById(reviewRequestDto.getReviewId()).orElseThrow(); // Todo 화면으로 보내지는 null 예외처리
+        Review review = reviewRepository.findById(reviewRequestDto.getReviewId()).orElse(null);
 
         // 독후감 수정
-        review.edit(reviewRequestDto);
-        reviewRepository.save(review);
+        if(review != null){
+            review.edit(reviewRequestDto);
+            reviewRepository.save(review);
+        }
+
+        return review;
     }
 
     // 독후감 삭제
-    public void delete(Long reviewId) {
+    public void delete(Long reviewId, Long loginUserId) {
 
         // 삭제할 독후감 가져오기
-        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        Review review = reviewRepository.findById(reviewId).orElse(null);
 
-        reviewRepository.delete(review);
+        // 로그인 유저와 작성자가 동일 인물일 경우 삭제
+        if (review.getUser().getUserId() == loginUserId)
+            reviewRepository.delete(review);
 
     }
 
@@ -109,9 +115,9 @@ public class ReviewService {
     }
 
     // 달력에 뿌려줄 해당 년월의 리뷰 조회
-    public List<ReviewResponseDto> findByYearAndMonth(int year, int month) {
+    public List<ReviewResponseDto> findByYearAndMonth(int year, int month, Long userId) {
 
-        List<Review> reviewList = reviewRepository.findByRegDtYearAndRegDtMonth(year, month);
+        List<Review> reviewList = reviewRepository.findByRegDtYearAndRegDtMonthAndUserUserId(year, month, userId);
 
         return reviewList.stream()
                 .map(ReviewResponseDto::new)
@@ -119,12 +125,17 @@ public class ReviewService {
     }
 
     // 선택한 일자의 뿌려줄 독후감 목록 조회
-    public List<ReviewResponseDto> findByYearAndMonthAndDay(int year, int month, int day) {
+    public List<ReviewResponseDto> findByYearAndMonthAndDay(int year, int month, int day, Long userId) {
 
-        List<Review> reviewList = reviewRepository.findByYearAndMonthAndDayOrderByRegDtDesc(year, month, day);
+        List<Review> reviewList = reviewRepository.findByYearAndMonthAndDayAndUserUserIdOrderByRegDtDesc(year, month, day, userId);
 
         return reviewList.stream()
                 .map(ReviewResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    // userId와 bookId로 독후감 조회
+    public ReviewResponseDto findByUserUserIdAndBookBookId(Long senderUserId, Long senderBookId) {
+        return new ReviewResponseDto();
     }
 }

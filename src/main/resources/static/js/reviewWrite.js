@@ -109,8 +109,6 @@ $(function () {
             alert('도서를 선택해주세요.');
         } else if (!shortReview){
             alert('한줄평을 작성해주세요.');
-        } else if (shortReview.length > 130) {
-            alert('한줄평을 130글자 미만으로 작성해주세요'); // Todo 실시간 info
         } else {
            var requestParam = {
                'isbn' : isbn,

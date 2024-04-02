@@ -32,29 +32,96 @@ body {
     border-radius: 20px;
 }
 
-.button-blue {
+/*포트폴리오 구경하기*/
+.btn-type-1 {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 40px;
     line-height: 40px;
     padding: 0 14px 0 20px;
     border-radius: 20px;
-    background-color: #4c55e5;
-    color: #fff;
     font-size: 16px;
     font-weight: 500;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #cccccc;
 }
-
-.button-blue2 {
+/*로그인*/
+.btn-type-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 52px;
     line-height: 52px;
     border-radius: 8px;
-    background-color: #4c55e5;
-    color: #fff;
     font-size: 16px;
     font-weight: 500;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #cccccc;
+}
+/*독후감 작성하기*/
+.btn-type-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 18px 0;
+    margin: 30px 0 45px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #cccccc;
+}
+/*독후감 상세보기*/
+.btn-type-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-left:10px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #cccccc;
+}
+.btn-blue {
+    background-color: #4c55e5;
+    color: #fff;
     border: 1px solid #4c55e5;
+}
+.btn-red {
+    background-color: #fd5032;
+    color: #fff;
+    border: 1px solid #fd5032;
+}
+.btn-gray {
+    background-color: #F3F5FA;
+    color: #4c55e5;
+    border: 1px solid #F3F5FA;
+}
+
+.btn-google {
+    margin-top:15px;
+}
+.btn-google>span {
+    padding-right: 8px;
+    height:22px;
+    line-height:22px;
+}
+.btn-review-write > svg {
+    margin-left: 10px;
+}
+.btn-chat-enter {
+    margin-right: auto;
+    margin-left:0;
 }
 
 .arrow {
@@ -72,7 +139,7 @@ body {
 .modal-background {
     display: none;
     position: fixed;
-    z-index: 0;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
@@ -83,7 +150,7 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -249,30 +316,8 @@ body {
     margin-bottom: 0;
 }
 
-.loginModal-content>button,
-.loginModal-content>a.google-button {
+.loginModal-content>button {
     width: 410px;
-}
-
-.loginModal-content>a.google-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    line-height: 50px;
-    margin-top: 15px;
-    border-radius: 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 16px;
-    font-weight: 500;
-    border: 1px solid #cccccc;
-}
-
-.loginModal-content>a.google-button>span {
-    padding-right: 8px;
-    height:22px;
-    line-height:22px;
 }
 .modal .modal-btn-con {
     width:100%;
@@ -331,7 +376,7 @@ body {
     fill: #4c55e5;
 }
 .review-sidebar-chat {
-    padding:20px 15px;
+    padding:20px 25px;
     background-color: #F5F7FB;
 }
 .review-chat-user {
@@ -391,21 +436,18 @@ body {
     border-radius: 10px;
     margin-right:auto;
 }
-.review-write-btn {
+.review-primary-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     width:100%;
     padding:18px 0;
-    margin:30px 0 45px;
-    background-color: #4c55e5;
-    color:#fff;
+    background-color: #fff;
+    border:1px solid #4c55e5 !important;
+    color:#4c55e5;
     font-size:16px;
     font-weight: 500;
     border-radius: 10px;
-}
-.review-write-btn > svg {
-    margin-left: 10px;
 }
 .review-chat-list > h2 {
     font-size:18px;
@@ -503,7 +545,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 .review-contents {
-    width:calc(100vw - 780px);
+    width:calc(100vw - 760px);
     padding:55px 45px;
     margin-left:414px;
     min-height:100vh;
@@ -628,6 +670,10 @@ body {
     color:#fff !important;
     font-size: 12px;
     font-weight: 500;
+}
+.review-openYn-n {
+    background-color: #ddd;
+    color:#333 !important;
 }
 
 /* 독후감 작성하기 */
@@ -791,24 +837,6 @@ body {
 .review-update-con .row-3 > div:last-child{
     flex:0 0 110px;
 }
-.review-detail-con .btn-controller > *  {
-    width:20% !important;
-}
-.btn-controller button,
-.btn-controller a{
-    cursor: pointer;
-    width:250px;
-    height:50px;
-    line-height: 50px;
-    border-radius: 5px;
-    border: 0;
-}
-.book-delete-btn {
-    width:25% !important;
-    margin-left:10px;
-    border:1px solid #ddd !important;
-    box-sizing: border-box;
-}
 
 
 /*독후감 수정하기*/
@@ -963,16 +991,19 @@ body {
     overflow-y: auto; /* 내용이 넘치면 ul에만 스크롤바가 나타나도록 함 */
     height: 100%;
 }
-.day-reviewList > ul::-webkit-scrollbar {
+.day-reviewList > ul::-webkit-scrollbar,
+.chat-review-modal::-webkit-scrollbar {
     width: 10px;
 }
 
-.day-reviewList > ul::-webkit-scrollbar-track {
+.day-reviewList > ul::-webkit-scrollbar-track,
+.chat-review-modal::-webkit-scrollbar-track {
     background-color: #e4e4e4;
     border-radius: 100px;
 }
 
-.day-reviewList > ul::-webkit-scrollbar-thumb {
+.day-reviewList > ul::-webkit-scrollbar-thumb,
+.chat-review-modal::-webkit-scrollbar-thumb {
     border-radius: 100px;
     border: 2px solid transparent;
     background-clip: content-box;

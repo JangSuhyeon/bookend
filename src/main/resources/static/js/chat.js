@@ -15,13 +15,13 @@ $(function () {
         var msg = JSON.parse(e.data);
         var messageType = msg.messageType;  // 메세지 타립
         var message = msg.message;          // 메세지 내용
-        var user = msg.user;         // 수신자 정보
-        var msgUserId = user.userId.toString();         // 수신자 userId
+        var msgUserId = msg.userId.toString();  // 수신자 userId
         var userId = $('#userId').val();    // 현재 로그인 한 유저
         var firstEntry = msg.firstEntry;    // 첫 입장 여부
-        var senderNm = user.name;    // 수신자 이름
+        var senderNm = msg.name;            // 수신자 이름
         var sendTime = msg.sendTime;        // 발신 시간
-        var sendDate = msg.sendDay;        // 발신 일자
+        var sendDate = msg.sendDay;         // 발신 일자
+        var picture = msg.picture;          // 프로필사진
         var lastUserId = $('.chat-user').last().find('.sender-user-id').val();  // 마지막 수신자 userId
         var lastChatDate = $('.chat-date').last().find('span').text();  // 마지막 수신자 userId
 
@@ -45,13 +45,22 @@ $(function () {
                     class: 'sender-user-id',
                     value: msgUserId
                 });
-                var chatProfileDiv = $('<div>').addClass('chat-profile').append($('<img>').attr('src', user.picture));
+                var chatProfileDiv = $('<div>').addClass('chat-profile').append($('<img>').attr('src', picture));
                 var chatName = $('<h2>').addClass('chat-name').text(senderNm);
                 chatUserDiv.append(chatProfileDiv,senderUserId, chatName);
 
                 // 발신자가 자기 자신이면 me 클래스 추가
                 if (msgUserId === userId) {
                     chatUserDiv.addClass('me');
+                }else if (msg.openYn) {
+                    // 해당 이용자가 작성한 독후감이 공개 상태라면
+                    var reviewLinkSpan = $('<span>').html('<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 320 512"><path fill="#4c55e5" d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>');
+                    var reviewLinkText = $('<p>').text(senderNm + '님의 독후감 보러가기');
+                    var chatReviewMoreDiv = $('<div>').addClass('chat-review-more').append(reviewLinkSpan, reviewLinkText);
+                    chatReviewMoreDiv.on('click', function() {
+                        openReivewModal(msg.reviewId);
+                    });
+                    chatUserDiv.append(chatReviewMoreDiv);
                 }
 
                 $('.chat-con').append(chatUserDiv);
@@ -92,12 +101,13 @@ $(function () {
         }
     });
 
+    // 채팅방 나가기
     $('#chatOutBtn').click(function (event) {
         event.preventDefault();
 
         var chatMsg = {
             "messageType" : "QUIT",
-            "chatId" : $('#chatId').val(),
+            "chatRoomId" : $('#chatRoomId').val(),
             "userId" : $('#userId').val(),
             // "message" : $('#msgInput').val(),
             "senderNm" : $('#userNm').val()
@@ -107,18 +117,46 @@ $(function () {
         window.location.href = $(this).attr("href");
     })
 
+    // 독후감 버튼 클릭 시 해당 유저의 해당 도서 독후감 모달 오픈
+    $('.chat-user ').on('click', '.chat-review-more', function() {
+        var senderReviewId = $(this).siblings('.sender-review-id').val();
+        openReivewModal(senderReviewId);
+    })
+
+    // 모달 닫기
+    $("#chatModalBackground").click(function(){
+        $("#chatReviewModal").css("display", "none");
+        $("#chatModalBackground").css("display", "none");
+    });
 });
+
+// 취향도 표시하는 함수
+function drawStars(score, container) {
+    var blackStars = '<span class="star">❤️</span>'; // 까만별 문자
+    var whiteStars = '<span class="star">🤍</span>'; // 하얀별 문자
+
+    // 까만별 그리기
+    for (var i = 0; i < score; i++) {
+        container.append(blackStars);
+    }
+
+    // 하얀별 그리기
+    for (var i = score; i < 5; i++) {
+        container.append(whiteStars);
+    }
+}
 
 // 채팅방 입장
 function enterRoom(socket) {
     var enterMsg = {
         "messageType" : "ENTER",
-        "chatId" : $('#chatId').val(),
+        "chatRoomId" : $('#chatRoomId').val(),
         "userId" : $('#userId').val(),
         "message" : '',
         "firstEntry" : $('#firstEntry').val(),
         "senderNm" : $('#userNm').val()
     }
+    if (!isOpen(socket)) return;
     socket.send(JSON.stringify(enterMsg));
 }
 
@@ -129,13 +167,41 @@ function sendMsg() {
     if (messgae !== null && messgae !== '') { // 메세지가 공백이 아니면
         var chatMsg = {
             "messageType" : "TALK",
-            "chatId" : $('#chatId').val(),
+            "chatRoomId" : $('#chatRoomId').val(),
             "userId" : $('#userId').val(),
             "message" : $('#msgInput').val(),
             "senderNm" : $('#userNm').val()
         };
+        if (!isOpen(socket)) return;
         socket.send(JSON.stringify(chatMsg));
     }
 
     $('#msgInput').val('');
+}
+
+function isOpen(ws) { return ws.readyState === ws.OPEN }
+
+// 리뷰 모달 띄우기
+function openReivewModal(reviewId) {
+    $.ajax({
+        type:'GET',
+        url:'/review/modal',
+        data:{'senderReviewId' : reviewId},
+        success:function (res) {
+            $('#chatReviewModal').css({"display": "block"});
+            $("#chatModalBackground").css("display", "block");
+
+            var review = res.review;
+            $('#modalWriter').text(review.name);
+            $('#modalTitle').text(review.title);
+            $('#modalAuthor').text(review.author);
+            $('#modalPublisher').text(review.publisher);
+            $('#modalCover').attr('src', review.cover);
+            $('#modalShortReview').text(review.shortReview);
+            $('#modalLongReview').text(review.longReview);
+
+            $('#modalScore').empty();
+            drawStars(review.score, $('#modalScore')); // 점수 표시
+        }
+    })
 }

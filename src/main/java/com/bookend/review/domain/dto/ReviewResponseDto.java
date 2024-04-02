@@ -18,31 +18,47 @@ import java.util.stream.Collectors;
 public class ReviewResponseDto {
 
     private Long reviewId;          // 독후감 PK
-    private Long bookId;            // 도서 PK
-    private Long userId;            // 작성자 PK
-
-    private int score;              // 도서 점수
     private String shortReview;     // 한줄평
     private String longReview;      // 독후감
+    private int score;              // 점수
     private Boolean openYn;         // 공개여부
-    private Date modDt;             // 수정일
     private String regDt;           // 작성일
+    private Date modDt;             // 수정일
 
-    private Book book;              // 도서
-    private User user;              // 작성자
+    // Book
+    private Long bookId;             // PK
+    private String title;            // 도서명
+    private String isbn;             // 도서고유번호
+    private String author;           // 작가
+    private String publisher;        // 출판사
+    private String cover;            // 책커버 주소
+
+    // User
+    private Long userId;             // PK
+    private String name;             // 회원이름
 
     // entity -> dto
     public ReviewResponseDto(Review review) {
         SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
 
         this.reviewId = review.getReviewId();
-        this.score = review.getScore();
         this.shortReview = review.getShortReview();
         this.longReview = review.getLongReview();
+        this.score = review.getScore();
         this.openYn = review.getOpenYn();
-        this.modDt = review.getModDt();
         this.regDt = format.format(review.getRegDt()); // 날짜 형식 변경
-        this.book = review.getBook();
-        this.user = review.getUser();
+        this.modDt = review.getModDt();
+
+        Book book = review.getBook();
+        this.bookId = book.getBookId();
+        this.title = book.getTitle();
+        this.isbn = book.getIsbn();
+        this.author = book.getAuthor();
+        this.publisher = book.getPublisher();
+        this.cover = book.getCover();
+
+        User user = review.getUser();
+        this.userId = user.getUserId();
+        this.name = user.getName();
     }
 }

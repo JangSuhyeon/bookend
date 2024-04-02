@@ -144,9 +144,9 @@ $(document).ready(function() {
                     li.html(`
                         <div class="day-review-top">
                             <div class="day-review-thumb">
-                                <img src="${review.book.cover}">
+                                <img src="${review.cover}">
                             </div>
-                            <div class="day-review-title">${review.book.title}</div>
+                            <div class="day-review-title">${review.title}</div>
                         </div>
                         <p class="day-review-con">${review.shortReview}</p>
                     `);

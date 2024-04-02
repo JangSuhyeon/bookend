@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username); // 아이디로 회원 조회
-        return user.map(UserDetailsImpl::new).orElse(null);
+        return user.map(UserDetailsImpl::new).orElse(null); // UserDetailsImpl(UserDetails의 구현체)타입으로 변환하여 반환
     }
 }

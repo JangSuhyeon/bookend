@@ -30,12 +30,12 @@ public class SecurityConfig {
                                 .anyRequest().authenticated())
                 .formLogin((formLogin) ->
                         formLogin
-                                .loginPage("/login/page").permitAll()
-                                .loginProcessingUrl("/login"))
+                                .loginPage("/login/page").permitAll() // 로그인 페이지 URL 설정
+                                .loginProcessingUrl("/login")) // 로그인 처리를 수행하는 URL 설정
                 .oauth2Login((oauth2Login) ->
                         oauth2Login
                                 .userInfoEndpoint(userInfoEndpointConfig ->
-                                        userInfoEndpointConfig.userService(oAuth2UserServiceImpl)));
+                                        userInfoEndpointConfig.userService(oAuth2UserServiceImpl))); // 사용자 엔드포인트를 이용하여 처리 하는 서비스 설정
 
 
         return httpSecurity.build();

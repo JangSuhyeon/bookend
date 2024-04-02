@@ -19,7 +19,7 @@ function drawStars(score, container) {
 
 // 페이지 로드
 function loadPageAjax() {
-    // 입력값 가져오기
+    // 검색 키워드 가져오기
     var searchReview = $('#searchReview').val().trim();
 
     // 검색 조화를 위한 현재 페이지 가져오기
@@ -44,9 +44,9 @@ function loadPageAjax() {
                     // 리뷰 목록에 새로운 항목 추가
                     $('.review-contents-list ul').append(
                         '<li class="review-item" data-review-id="' + review.reviewId + '">' +
-                        '<div class="review-book-img"><img src="' + review.book.cover + '" alt="cover"></div>' +
+                        '<div class="review-book-img"><img src="' + review.cover + '" alt="cover"></div>' +
                         '<div class="review-book-contents">' +
-                        '<h2>' + review.book.title + '</h2>' +
+                        '<h2>' + review.title + '</h2>' +
                         '<p>' + review.shortReview + '</p>' +
                         '</div>' +
                         '<div class="review-book-info">' +

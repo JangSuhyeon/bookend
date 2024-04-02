@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
-    List<ChatMessage> findByChatIdAndSendTimeAfter(Long chatId, Date firstEnterTime);
+    List<ChatMessage> findByChatRoomChatRoomIdAndSendTimeAfter(Long chatId, Date firstEnterTime);
 
-    ChatMessage findFirstByChatIdAndSendTimeAfterOrderBySendTimeDesc(Long chatId, Date firstEnterTime);
+    ChatMessage findFirstByChatRoomChatRoomIdAndSendTimeAfterOrderBySendTimeDesc(Long chatId, Date enterDateTime);
 }

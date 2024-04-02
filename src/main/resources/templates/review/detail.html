@@ -22,21 +22,21 @@
                         <div class="row row-2 row-15">
                             <div class="col">
                                 <h2 class="input title">작성자</h2>
-                                <p class="input" th:text="${review.user.name}"></p>
+                                <p class="input" th:text="${review.name}"></p>
                             </div>
                             <div class="col">
                                 <h2 class="input title">도서명</h2>
-                                <p class="input" th:text="${review.book.title}"></p>
+                                <p class="input" th:text="${review.title}"></p>
                             </div>
                         </div>
                         <div class="row row-3">
                             <div class="col">
                                 <h2 class="input title">작가</h2>
-                                <p class="input" th:text="${review.book.author}"></p>
+                                <p class="input" th:text="${review.author}"></p>
                             </div>
                             <div class="col">
                                 <h2 class="input title">출판사</h2>
-                                <p class="input" th:text="${review.book.publisher}"></p>
+                                <p class="input" th:text="${review.publisher}"></p>
                             </div>
                             <div class="col">
                                 <h2 class="input title">공개여부</h2>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="col cover">
-                        <img th:src="${review.book.cover}">
+                        <img th:src="${review.cover}">
                     </div>
                 </div>
                 <div class="row row-2 row-15">
@@ -69,12 +69,10 @@
                 </div>
 
                 <div class="btn-controller">
-                    <a class="chat-enter-btn" th:href="'/chat/' + ${review.book.bookId}">채팅방 입장하기</a>
-
-                    <!--자신이 작성한 글만 수정하기 버튼이 보임-->
-                    <!--Todo 목록보기 버튼 추가-->
-                    <a th:if="${review.userId eq loginUserId}" id="book-modify-btn" class="review-write-btn" th:href="@{/review/{reviewId}/edit(reviewId = ${review.reviewId})}">수정하기</a>
-                    <button th:if="${review.userId eq loginUserId}" type="button" id="book-delete-btn" class="book-delete-btn">삭제하기</button>
+                    <a class="btn-type-4 btn-red btn-chat-enter" th:href="'/chat/' + ${review.bookId}">채팅방 입장하기</a>
+                    <a href="/" class="btn-type-4">목록보기</a>
+                    <a th:if="${review.userId eq loginUser.userId}" id="book-modify-btn" class="btn-type-4 btn-gray" th:href="@{/review/{reviewId}/edit(reviewId = ${review.reviewId})}">수정하기</a>
+                    <button th:if="${review.userId eq loginUser.userId}" type="button" id="book-delete-btn" class="btn-type-4 btn-gray">삭제하기</button>
                 </div>
             </div>
         </div>

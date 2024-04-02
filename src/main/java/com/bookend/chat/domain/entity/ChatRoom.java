@@ -1,26 +1,27 @@
 package com.bookend.chat.domain.entity;
 
-import com.bookend.review.domain.dto.ReviewRequestDto;
 import com.bookend.review.domain.entity.Book;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity
-public class Chat {
+public class ChatRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chatId;  // PK
+    private Long chatRoomId;  // PK
 
     @OneToOne
-    @JoinColumn(name = "bookId")
-    private Book book;  // 채팅방 주제 도서
+    @JoinColumn(name = "bookId", nullable = false)
+    private Book book;    // 도서
 
     // dto -> entity
-    public Chat(Book book) {
+    public ChatRoom(Book book) {
         this.book = book;
     }
 
