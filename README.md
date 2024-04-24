@@ -11,10 +11,10 @@ http://www.jangsuhyeon.com/
 <br><br>
 ### 📖 상세내용
 
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/e7377fe6-7e43-45e0-a5ac-2c6005e0977d/215776f6-54a0-4bd9-be40-79e5028ff045/%EC%9D%B4%EB%AF%B8%EC%A7%80_1.png">
-https://prod-files-secure.s3.us-west-2.amazonaws.com/e7377fe6-7e43-45e0-a5ac-2c6005e0977d/e0415608-07c8-402c-bf24-75bbc20f2709/%EC%9D%B4%EB%AF%B8%EC%A7%80_3.png
-https://prod-files-secure.s3.us-west-2.amazonaws.com/e7377fe6-7e43-45e0-a5ac-2c6005e0977d/fa6c5e16-5a24-4d1a-af33-e690051bd3a2/%EC%9D%B4%EB%AF%B8%EC%A7%80_2.png
-
+![이미지 1](https://github.com/JangSuhyeon/bookend/assets/65846005/d8c224e2-76b5-4e66-b357-623866042d92)
+![이미지 3](https://github.com/JangSuhyeon/bookend/assets/65846005/2bb0bea7-c9af-475f-9a2e-b1bd2132ee01)
+![이미지 2](https://github.com/JangSuhyeon/bookend/assets/65846005/92f3a043-6357-4a2c-b984-bef718b85b29)
+<p style="background-color:#111;>
 ✨ 북엔드는 **독후감을 작성**하고 같은 도서를 읽은 **사람들과 채팅**을 할 수 있는 서비스입니다.
 
 오프라인 또는 온라인 대면 독서 모임보다 **가볍게 책에 대해서 대화를 하고 싶어하는 사람들을 위해 개발**하게 되었습니다.
@@ -22,6 +22,7 @@ https://prod-files-secure.s3.us-west-2.amazonaws.com/e7377fe6-7e43-45e0-a5ac-2c6
 독후감을 작성하고, 자신이 작성한 독후감 상세페이지에서 채팅방에 입장할 수 있습니다.
 
 자신의 독후감을 공개해 놓았을 때만 다른 이용자가 볼 수 있습니다.
+</p>
 <br><br>
 ### 🔑 주요기능
 
