@@ -9,6 +9,9 @@
 ### 🔗 포트폴리오 사이트
 http://www.jangsuhyeon.com/
 <br><br>
+### 🎬 시연 영상
+https://youtu.be/ZP1BvX5S2BQ
+<br><br>
 ### 📖 상세내용
 
 ![이미지 1](https://github.com/JangSuhyeon/bookend/assets/65846005/d8c224e2-76b5-4e66-b357-623866042d92)
