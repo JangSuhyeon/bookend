@@ -4,6 +4,8 @@
 
 ▪️ **사용한 기술 :** SpringBoot, SpringSecurity, JPA, html/css, Thymeleaf, jQuery, MariaDB, Gradle
 
+▪️ **Noton :** https://www.notion.so/Bookend-770389ecca504596938bd5a81342407d?pvs=4
+
 ---
 
 ### 🔗 포트폴리오 사이트
